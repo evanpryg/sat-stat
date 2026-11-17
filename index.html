@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAT Math | Center, Spread, Shape, Displays & Scatterplots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1b2236;--muted:#56627c;--bg:#eef1f8;--line:#e5e9f2;--red:#dc2626;--gold:#f59e0b;
+--acc:#6b4ce6;--soft:#f1edff;--deep:#3d2a99;--fs:clamp(15px,1.2cqw,22px)}
+[data-sec=intro]{--acc:#6b4ce6;--soft:#f1edff;--deep:#3d2a99}
+[data-sec=center]{--acc:#2563eb;--soft:#e9f0ff;--deep:#173f99}
+[data-sec=spread]{--acc:#0d9488;--soft:#e0f5f2;--deep:#0b5d56}
+[data-sec=shape]{--acc:#e8710f;--soft:#fff0e2;--deep:#9a4608}
+[data-sec=display]{--acc:#c0367a;--soft:#fde9f3;--deep:#86204f}
+[data-sec=scatter]{--acc:#0891b2;--soft:#e0f4fa;--deep:#0b5a73}
+[data-sec=practice]{--acc:#15964a;--soft:#e4f7eb;--deep:#0d6331}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;font:16px/1.5 "Plus Jakarta Sans",Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);overflow:hidden}
+body{background:radial-gradient(circle at 8% 0%,#e1e7ff 0,transparent 38%),radial-gradient(circle at 100% 100%,#ddf3ef 0,transparent 40%),var(--bg)}
+button,input{font:inherit}
+.app{height:100%;display:flex;flex-direction:column;padding:10px 12px;gap:8px}
+.topbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:800;display:flex;align-items:center;gap:9px;font-size:15px}
+.logo{width:32px;height:32px;border-radius:10px;background:var(--acc);display:grid;place-items:center;color:#fff;transition:background .35s}
+.secs{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.secs button{border:0;border-radius:99px;padding:5px 13px;font-size:14px;font-weight:700;background:#fff;color:var(--muted);cursor:pointer;box-shadow:0 1px 0 #d8deea;transition:.25s}
+.secs button.on{background:var(--acc);color:#fff}
+.stage{flex:1;min-height:0;position:relative;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(30,45,80,.13);container-type:inline-size}
+.slide{position:absolute;inset:0;padding:2.8% 4.5% 1.6%;display:none;overflow-y:auto;font-size:var(--fs);background:linear-gradient(180deg,#fff 0,#fbfcff 100%);border-top:6px solid var(--acc)}
+.slide.active{display:flex;flex-direction:column;animation:enter .45s ease both}
+@keyframes enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(34px,5cqw,78px);line-height:1.03;letter-spacing:-.04em;margin-bottom:.35em}
+h1 em{font-style:normal;color:var(--acc)}
+h2{font-size:clamp(24px,2.7cqw,44px);line-height:1.12;letter-spacing:-.025em;margin:.1em 0 .55em}
+h3{font-size:1.08em;margin-bottom:.35em;line-height:1.25}
+p,li{line-height:1.55;color:var(--muted)}
+p{margin-bottom:.55em}
+strong,b{color:var(--ink)}
+.hd{display:flex;align-items:center;gap:.6em}
+.hd .n{background:var(--acc);color:#fff;font-weight:800;border-radius:9px;padding:.1em .5em;font-size:.82em}
+.hd .k{font-weight:800;color:var(--acc);font-size:.82em;letter-spacing:.06em;text-transform:uppercase}
+.small{font-size:max(15px,.88em)}
+.id{color:var(--acc);font-style:italic;font-weight:700}
+.arabic{font-family:"Amiri","Noto Naskh Arabic",serif;direction:rtl}
+.g2,.g3,.g4{display:grid;gap:1.1em;align-items:start}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
+.w64{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+@container (max-width:820px){.w64{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:1.05em 1.2em;min-width:0;box-shadow:0 4px 14px rgba(30,45,80,.05)}
+.card.soft{background:var(--soft);border-color:transparent}
+.card.top{border-top:5px solid var(--acc)}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+.mt{margin-top:1em}
+.analogy{background:#fff8e7;border:2px dashed #f2c25a;border-radius:16px;padding:.8em 1.1em;margin:.6em 0;color:#6b4a06}
+.analogy::before{content:"💡 Analogy";display:block;font-weight:800;color:#a46a00;font-size:.85em;letter-spacing:.04em;margin-bottom:.2em}
+.analogy p{color:#6b4a06;margin-bottom:.3em}
+.indo{background:#fff;border:1px solid #f3d3d3;border-left:6px solid #e11d48;border-radius:0 14px 14px 0;padding:.65em 1em;margin:.6em 0;color:#5a2030}
+.indo::before{content:"";display:inline-block;width:20px;height:13px;background:linear-gradient(#e11d48 50%,#fff 50%);border:1px solid #e5b4b4;border-radius:2px;vertical-align:-1px;margin-right:7px}
+.indo b.lb{color:#be123c;margin-right:4px}
+.key{background:var(--soft);border-left:6px solid var(--acc);border-radius:0 14px 14px 0;padding:.65em 1em;margin:.6em 0;color:var(--deep)}
+.key p{color:var(--deep);margin:0}
+.tag{display:inline-block;font-size:max(14px,.78em);font-weight:800;padding:2px 10px;border-radius:7px;background:var(--acc);color:#fff;margin-bottom:.45em;letter-spacing:.03em}
+.tag.lt{background:var(--soft);color:var(--deep)}
+.formula{font-family:ui-monospace,Consolas,monospace;font-weight:800;color:var(--deep);background:var(--soft);border-radius:10px;padding:.25em .7em;display:inline-block;margin:.2em 0}
+.big-emoji{font-size:2.1em;line-height:1;margin-bottom:.25em}
+ul,ol{padding-left:1.25em;margin:.3em 0}li{margin:.25em 0}
+table{width:100%;border-collapse:collapse}td,th{padding:6px 10px;border-bottom:1px solid var(--line);text-align:center}
+th{color:var(--deep);background:var(--soft)}
+.chart{width:100%;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.chart svg{display:block}
+.sim{border:2px solid var(--acc);border-radius:20px;padding:.9em 1.15em;background:#fff;box-shadow:0 10px 30px rgba(30,45,80,.07)}
+.sim>.tag:first-child::before{content:"🎮 "}
+.ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:.55em 0}
+.btn{border:0;border-radius:11px;background:var(--acc);color:#fff;padding:7px 15px;font-weight:700;cursor:pointer;transition:transform .15s,opacity .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn:disabled{opacity:.45;cursor:default;transform:none}
+.btn.alt{background:var(--soft);color:var(--deep)}
+.btn.on{background:var(--deep);color:#fff}
+input[type=range]{flex:1;min-width:160px;accent-color:var(--acc);height:28px}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin-top:.5em}
+.stats b{background:var(--soft);color:var(--deep);border-radius:9px;padding:3px 11px}
+.stats b.r{background:#fde8e8;color:var(--red)}
+.leg i{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:-2px;margin-right:4px}
+.opt{display:block;width:100%;text-align:left;margin:7px 0;padding:9px 14px;border:2px solid var(--line);background:#fff;border-radius:12px;cursor:pointer;color:var(--ink);transition:.2s}
+.opt:hover{border-color:var(--acc)}.opt.ok{background:#e4f7eb;border-color:#15964a}.opt.no{background:#fde8e8;border-color:var(--red)}
+.rv{visibility:hidden;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
+.rv.on{visibility:visible;opacity:1;transform:none}
+.steplist>div{padding:.45em .7em;border-radius:12px;margin:.35em 0;background:#f7f9fd;border:1px solid var(--line)}
+.steplist>div b.s{display:inline-block;background:var(--acc);color:#fff;border-radius:7px;padding:0 .45em;margin-right:.4em;font-size:.85em}
+.footer{margin-top:auto;padding-top:1em;display:flex;justify-content:space-between;gap:1em;color:#7a869c;font-size:max(14px,.8em)}
+.footer span:first-child{font-weight:700;color:var(--deep)}
+.controls{display:flex;align-items:center;gap:10px}
+.controls button{border:1px solid #d3dbe8;background:#fff;border-radius:11px;padding:6px 15px;cursor:pointer;color:var(--ink);font-weight:700}
+.controls #next{background:var(--acc);color:#fff;border-color:transparent;transition:background .35s}
+.controls button:disabled{opacity:.4;cursor:default}
+.progress{height:7px;background:#dbe2ec;border-radius:9px;overflow:hidden;flex:1}
+.progress span{display:block;height:100%;background:var(--acc);width:0;transition:width .3s,background .35s}
+#counter{font-weight:700;color:var(--muted);min-width:60px;text-align:center}
+.conf{position:fixed;top:-20px;width:12px;height:16px;z-index:9;animation:fall 3s ease-in forwards}
+/* hero */
+.hero{justify-content:center;background:radial-gradient(circle at 85% 30%,#efe9ff 0,transparent 45%),linear-gradient(135deg,#fff,#f7f8ff)}
+.hero .arabic{font-size:clamp(26px,3cqw,46px);color:var(--acc);margin-bottom:.4em}
+.hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:4%;align-items:center}
+@container (max-width:820px){.hero-grid{grid-template-columns:1fr}.hero-art{display:none}}
+.lens{display:flex;gap:10px;flex-wrap:wrap;margin:1.2em 0}
+.lens span{padding:7px 15px;border-radius:99px;font-weight:800;color:#fff}
+.howto{display:flex;gap:1.4em;flex-wrap:wrap;color:var(--muted);font-size:.85em}
+.howto kbd{background:#fff;border:1px solid #d3dbe8;border-bottom-width:3px;border-radius:6px;padding:0 6px;font-family:inherit;font-weight:700}
+/* divider */
+.divider{background:linear-gradient(135deg,var(--acc),var(--deep))!important;justify-content:center;border-top:0;overflow:hidden}
+.divider *{color:#fff}
+.divider .part{font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.divider h1{color:#fff;max-width:75%}
+.divider p{color:rgba(255,255,255,.92);font-size:1.25em;max-width:62%}
+.divider .qs{display:flex;gap:10px;flex-wrap:wrap;margin-top:1em;max-width:70%}
+.divider .qs span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:6px 15px;border-radius:99px;font-weight:700}
+.divider .deco{position:absolute;right:5%;top:50%;transform:translateY(-50%);font-size:clamp(90px,17cqw,260px);opacity:.9;filter:drop-shadow(0 20px 30px rgba(0,0,0,.2))}
+.divider .bignum{position:absolute;right:3%;bottom:-6%;font-size:clamp(120px,24cqw,380px);font-weight:800;opacity:.08;line-height:1}
+/* journey */
+.road{display:grid;grid-template-columns:repeat(5,1fr);gap:1em;position:relative;margin:.4em 0 1em}
+@container (max-width:820px){.road{grid-template-columns:1fr 1fr}}
+.stop{border-radius:18px;padding:1em;color:#fff;position:relative}
+.stop .no{font-size:2.2em;font-weight:800;opacity:.4;line-height:1}
+.stop h3,.stop p{color:#fff}.stop p{opacity:.95;margin:0}
+/* data chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin:.5em 0}
+.chips .c{min-width:2.4em;text-align:center;padding:.35em .55em;border-radius:10px;background:#f1f4fa;border:2px solid var(--line);font-weight:800;transition:.35s}
+.chips .c.lo{background:#dbe8ff;border-color:#9dbcf7}
+.chips .c.hi{background:#d6f3ee;border-color:#8fd6cb}
+.chips .c.md{background:#fde2e2;border-color:var(--red);color:var(--red)}
+.chips .m{display:flex;flex-direction:column;align-items:center;font-size:.75em;font-weight:800;color:var(--deep);transition:.35s}
+.chips .m i{display:block;width:4px;height:2.1em;background:var(--acc);border-radius:2px}
+.chips .m.hide{opacity:0;width:0;overflow:hidden}
+/* lineup */
+.lineup{position:relative;height:255px;background:linear-gradient(#f9fbff,#eef3fb);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.lineup .ground{position:absolute;left:0;right:0;bottom:36px;border-top:3px solid #c3cee0}
+.stu{position:absolute;bottom:39px;width:clamp(24px,3.6cqw,44px);transform:translateX(-50%);transition:left .9s cubic-bezier(.5,0,.2,1),background .35s;background:#9fb7f2;border-radius:12px 12px 4px 4px}
+.stu::before{content:"";position:absolute;left:50%;top:-30px;width:26px;height:26px;margin-left:-13px;border-radius:50%;background:#f1c79c}
+.stu span{position:absolute;bottom:-33px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:800;color:var(--muted);white-space:nowrap}
+.stu.mid{background:var(--red)}.stu.mid span{color:var(--red)}
+.stu.new{background:#f2b84b}
+/* candy controls */
+.fsctl{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center;margin-top:6px}
+.fsctl div{display:flex;justify-content:center;gap:4px}
+.fsctl button{border:1px solid var(--line);background:#fff;border-radius:8px;width:34px;height:30px;cursor:pointer;font-weight:800;color:var(--deep)}
+/* flow */
+.flow{display:flex;flex-direction:column;align-items:center;gap:.5em}
+.flow .q{background:var(--acc);color:#fff;border-radius:14px;padding:.55em 1em;font-weight:800;text-align:center}
+.flow .row{display:flex;gap:1em;justify-content:center;flex-wrap:wrap;width:100%}
+.flow .ans{flex:1;min-width:180px;border:2px solid var(--line);border-radius:14px;padding:.6em .9em;background:#fff;text-align:center}
+.flow .ans b.pick{display:block;font-size:1.15em;color:var(--acc)}
+.arrow{color:var(--acc);font-weight:800;font-size:1.3em;line-height:1}
+.bars div{display:flex;align-items:center;gap:8px;margin:5px 0}
+.bars span.l{width:7.5em;font-weight:700;color:var(--ink)}
+.bars i{display:block;height:24px;border-radius:7px;background:var(--acc);opacity:.8}
+.bars i.top{opacity:1;background:var(--deep)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app" data-sec="intro">
+<header class="topbar">
+ <div class="brand"><div class="logo">📊</div><span>SAT Math · Data Analysis</span></div>
+ <nav class="secs" id="secs"></nav>
+</header>
+<main class="stage" id="stage">
+
+<!-- ============ INTRO ============ -->
+<section class="slide hero active" data-sec="intro" data-hero data-name="Intro">
+ <div class="hero-grid">
+  <div>
+   <div class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+   <div class="hd"><span class="k">SAT Math • Problem Solving & Data Analysis</span></div>
+   <h1>Center, Spread, <em>Shape</em>,<br>Displays & Scatterplots</h1>
+   <p style="font-size:1.15em;max-width:95%">Never learned statistics before? Perfect. We start from zero, use everyday examples, and play with <strong>12 interactive simulators</strong> along the way.</p>
+   <div class="lens"><span style="background:#2563eb">🎯 Center</span><span style="background:#0d9488">📏 Spread</span><span style="background:#e8710f">⛰️ Shape</span><span style="background:#c0367a">📊 Displays</span><span style="background:#0891b2">📈 Scatterplots</span></div>
+   <div class="howto"><span><kbd>←</kbd> <kbd>→</kbd> move slides</span><span>🎮 = try it yourself</span><span>💡 = analogy</span><span>🇮🇩 red box = ringkasan Bahasa Indonesia</span></div>
+  </div>
+  <svg class="hero-art" viewBox="0 0 400 320" aria-hidden="true">
+   <rect x="10" y="10" width="380" height="300" rx="28" fill="#fff" stroke="#e5e9f2"/>
+   <g fill="#9fb7f2"><rect x="50" y="200" width="36" height="60" rx="6"/><rect x="92" y="140" width="36" height="120" rx="6"/><rect x="134" y="90" width="36" height="170" rx="6" fill="#2563eb"/><rect x="176" y="120" width="36" height="140" rx="6"/><rect x="218" y="170" width="36" height="90" rx="6"/><rect x="260" y="205" width="36" height="55" rx="6"/><rect x="302" y="232" width="36" height="28" rx="6"/></g>
+   <line x1="40" x2="350" y1="262" y2="262" stroke="#9aabc3" stroke-width="3"/>
+   <line x1="190" x2="190" y1="50" y2="262" stroke="#dc2626" stroke-width="4" stroke-dasharray="8 6"/>
+   <line x1="214" x2="214" y1="50" y2="262" stroke="#1d4ed8" stroke-width="4"/>
+   <text x="160" y="42" font-size="15" font-weight="800" fill="#dc2626" font-family="sans-serif">median</text>
+   <text x="220" y="42" font-size="15" font-weight="800" fill="#1d4ed8" font-family="sans-serif">mean</text>
+   <path d="M300 222 q30 -40 60 -10" stroke="#e8710f" stroke-width="3" fill="none" marker-end="url(#ah)"/>
+   <text x="292" y="190" font-size="14" font-weight="800" fill="#e8710f" font-family="sans-serif">long tail →</text>
+   <defs><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#e8710f"/></marker></defs>
+   <g fill="#c0367a"><circle cx="70" cy="295" r="5"/><circle cx="90" cy="295" r="5"/><circle cx="110" cy="295" r="5"/></g>
+  </svg>
+ </div>
+</section>
+
+<section class="slide" data-sec="intro" data-k="Islamic value" data-t="Knowledge begins with careful judgment" data-f="Verify before you conclude.">
+ <div class="g2">
+  <div class="card soft"><span class="tag">Qur’an • Al-Isra’ 17:36</span>
+   <div class="arabic" style="font-size:1.55em;line-height:1.9;text-align:center;color:var(--ink)">وَلَا تَقْفُ مَا لَيْسَ لَكَ بِهِ عِلْمٌ ۚ إِنَّ السَّمْعَ وَالْبَصَرَ وَالْفُؤَادَ كُلُّ أُولَٰئِكَ كَانَ عَنْهُ مَسْئُولًا</div>
+   <p><strong>Meaning:</strong> “Do not pursue that of which you have no knowledge. Indeed, the hearing, the sight, and the heart: about all those [one] will be questioned.” (translation adapted from Sahih International)</p></div>
+  <div class="card"><h3>What does this have to do with statistics?</h3>
+   <ul><li>Every day we hear claims like <em>“on average, students sleep 6 hours.”</em> Statistics teaches us to <strong>check</strong> such claims.</li><li>One number can hide a lot. We look at <strong>center, spread, and shape</strong> together.</li><li>We only say what the data can actually support.</li><li>We are honest about limits and uncertainty.</li></ul>
+   <div class="key"><p><strong>Our principle:</strong> be curious with data, never careless with conclusions.</p></div>
+   <div class="indo"><b class="lb">Singkatnya:</b> Jangan mengikuti sesuatu tanpa ilmu. Dalam statistik, artinya: periksa data dulu sebelum menyimpulkan.</div></div>
+ </div>
+</section>
+
+<section class="slide" data-sec="intro" data-k="Learning map" data-t="Our journey: five questions about data" data-f="Each part answers one question about the same data.">
+ <div class="road">
+  <div class="stop" style="background:linear-gradient(135deg,#2563eb,#173f99)"><div class="no">1</div><h3>🎯 Center</h3><p>“What is a <b style="color:#fff">typical</b> value?”<br>Mean, median, mode.</p></div>
+  <div class="stop" style="background:linear-gradient(135deg,#0d9488,#0b5d56)"><div class="no">2</div><h3>📏 Spread</h3><p>“How <b style="color:#fff">different</b> are the values?”<br>Range, IQR, MAD, SD.</p></div>
+  <div class="stop" style="background:linear-gradient(135deg,#e8710f,#9a4608)"><div class="no">3</div><h3>⛰️ Shape</h3><p>“What <b style="color:#fff">pattern</b> do they make?”<br>Symmetric, skewed, outliers.</p></div>
+  <div class="stop" style="background:linear-gradient(135deg,#c0367a,#86204f)"><div class="no">4</div><h3>📊 Displays</h3><p>“Which <b style="color:#fff">picture</b> shows it best?”<br>Dot plot, histogram, box plot.</p></div>
+  <div class="stop" style="background:linear-gradient(135deg,#0891b2,#0b5a73)"><div class="no">5</div><h3>📈 Scatterplots</h3><p>“How are <b style="color:#fff">two variables</b> related?”<br>Association, line of best fit.</p></div>
+ </div>
+ <div class="g2">
+  <div class="card"><h3>By the end of this lesson you can…</h3><ul><li>calculate mean, median, mode, range, and IQR by hand;</li><li>explain what standard deviation <em>means</em> without heavy calculation;</li><li>tell if a graph is skewed and predict mean vs median;</li><li>read dot plots, histograms, and box plots without falling into SAT traps;</li><li>describe a scatterplot, read a line of best fit, and make (and judge) predictions.</li></ul></div>
+  <div class="analogy"><p>Think of describing a <strong>new classmate</strong> to a friend. One fact (“he’s 165 cm”) is not enough. You also say what he’s usually like, how moody he is, and what he looks like. Data is the same: one number is never the whole story.</p></div>
+ </div>
+</section>
+
+<section class="slide" data-sec="intro" data-k="Starting from zero" data-t="First things first: what is data?" data-f="Before calculating anything, know what each number represents.">
+ <div class="g2">
+  <div>
+   <p>We asked <strong>9 students</strong>: <em>“How many minutes did you read yesterday?”</em> Their answers:</p>
+   <div class="chips"><span class="c">15</span><span class="c">20</span><span class="c">5</span><span class="c">30</span><span class="c">20</span><span class="c">10</span><span class="c">45</span><span class="c">20</span><span class="c">25</span></div>
+   <div class="card mt"><h3>The vocabulary</h3>
+    <table><tr><th>Word</th><th>Meaning here</th></tr>
+    <tr><td><strong>Data set</strong> <span class="id">kumpulan data</span></td><td>all 9 answers together</td></tr>
+    <tr><td><strong>Value</strong> <span class="id">nilai / datum</span></td><td>one answer, e.g. 30</td></tr>
+    <tr><td><strong>n</strong></td><td>how many values: n = 9</td></tr>
+    <tr><td><strong>Variable</strong> <span class="id">variabel</span></td><td>what we measured: reading time (minutes)</td></tr></table></div>
+  </div>
+  <div data-steps>
+   <div class="card soft"><h3>Habit #1: sort the data</h3><p>Almost every statistic is easier when the data is in order from smallest to largest.</p>
+    <div class="chips rv"><span class="c">5</span><span class="c">10</span><span class="c">15</span><span class="c">20</span><span class="c">20</span><span class="c">20</span><span class="c">25</span><span class="c">30</span><span class="c">45</span></div>
+    <p class="rv">Now we can immediately see: smallest = 5, largest = 45, and <strong>20 appears three times</strong>.</p>
+    <div class="ctl"><button class="btn nx">Sort it ▶</button><button class="btn alt rs">Reset</button></div></div>
+   <div class="analogy"><p>A data set is like a <strong>class photo</strong>: each value is one student. Sorting is like asking everyone to stand in order of height. Suddenly it’s easy to see who is in the middle.</p></div>
+   <div class="indo"><b class="lb">Singkatnya:</b> Data = kumpulan nilai hasil pengamatan. n = banyaknya data. Kebiasaan pertama: <b>urutkan data</b> dari kecil ke besar.</div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-sec="intro" data-k="Distribution • Simulator 1" data-t="A distribution shows which values appear, and how often" data-f="Describe before you interpret.">
+ <div class="g2 w64">
+  <div class="sim"><span class="tag">SIMULATOR 1 • Dot plot builder</span>
+   <p class="small">👆 <strong>Click on the number line</strong> to add a student’s reading time. Equal values stack up like coins.</p>
+   <div class="chart" id="c1" style="cursor:pointer"></div>
+   <div class="ctl"><button class="btn alt" id="b1u">Undo</button><button class="btn alt" id="b1c">Clear</button><button class="btn alt" id="b1e">Example: one very big value</button></div>
+   <div class="stats" id="s1"></div></div>
+  <div>
+   <div class="card"><h3>How to read it</h3><ul><li>Each <strong style="color:#2563eb">● dot</strong> = one student.</li><li>A tall stack = many students gave that value.</li><li>The <strong style="color:#b7791f">▲ triangle</strong> = the <strong>mean</strong>, the balance point of a seesaw.</li><li>The <strong style="color:var(--red)">red dashed line</strong> = the <strong>median</strong>, the middle student.</li></ul></div>
+   <div class="key"><p><strong>Try it:</strong> add a dot far to the right (like 20). Which moves more, the ▲ mean or the red median?</p></div>
+   <div class="indo"><b class="lb">Singkatnya:</b> Distribusi = gambaran nilai apa saja yang muncul dan seberapa sering. Dot plot: satu titik = satu data.</div>
+  </div>
+ </div>
+</section>
+
+<!-- ============ CENTER ============ -->
+<section class="slide divider" data-sec="center" data-name="Center">
+ <div class="part">Part 1 of 5</div>
+ <h1>🎯 Center: the “typical” value</h1>
+ <p>If you could describe a whole class using just <strong>ONE number</strong>, which number would you choose?</p>
+ <div class="qs"><span>Mean = fair share</span><span>Median = the middle person</span><span>Mode = the most popular</span></div>
+ <div class="deco">🎯</div><div class="bignum">1</div>
+</section>
+
+<section class="slide" data-sec="center" data-k="Mean • Simulator 2" data-t="Mean = what everyone gets if we share fairly" data-f="Mean = total ÷ how many.">
+ <div class="g2 w64">
+  <div class="sim"><span class="tag">SIMULATOR 2 • Fair-share candies</span>
+   <p class="small">Five friends have different numbers of candies. Use <b>+</b>/<b>−</b> to change them, then press <strong>Share equally</strong>.</p>
+   <div class="chart" id="cfs"></div>
+   <div class="fsctl" id="fsctl"></div>
+   <div class="ctl"><button class="btn" id="fsb">🍬 Share equally</button></div>
+   <div class="stats" id="sfs"></div></div>
+  <div>
+   <div class="analogy"><p>Five friends pool all their candies into one bag, then split the bag <strong>equally</strong>. The amount each person gets is the <strong>mean</strong>.</p></div>
+   <div class="card"><h3>So the recipe is:</h3><div class="formula">Mean = (sum of all values) ÷ n</div>
+    <p class="mt">Example: 2 + 7 + 3 + 8 + 5 = <strong>25</strong> candies, shared by <strong>5</strong> friends → 25 ÷ 5 = <strong>5 each</strong>.</p>
+    <p>Notice: nobody had to start with exactly 5. The mean does <em>not</em> have to be one of the data values (it can even be a decimal like 5.4).</p></div>
+   <div class="indo"><b class="lb">Singkatnya:</b> Mean (rata-rata) = jumlah semua data ÷ banyak data. Bayangkan permen dikumpulkan lalu dibagi rata.</div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-sec="center" data-k="Mean as balance point" data-t="Mean = the balance point of a seesaw" data-f="Distances below the mean balance distances above it.">
+ <div class="g2">
+  <div class="card"><h3>Data: 2, 4, 9 → mean = 15 ÷ 3 = <span class="formula">5</span></h3>
+   <div class="chart" id="csaw"></div>
+   <table class="mt"><tr><th>Left of 5</th><th>Right of 5</th></tr><tr><td>2 is 3 away<br>4 is 1 away</td><td>9 is 4 away</td></tr><tr><td><strong>Total: 4</strong></td><td><strong>Total: 4</strong></td></tr></table>
+  </div>
+  <div>
+   <div class="analogy"><p>Put each value on a seesaw like a child sitting at that spot. The <strong>mean is where you put the triangle</strong> so the seesaw stays perfectly level.</p><p>The total distance on the left always equals the total distance on the right.</p></div>
+   <div class="card soft"><h3>Why this matters</h3><p>A child sitting <strong>very far</strong> from the middle has a lot of “pull.” Move the 9 to 30 and the balance point must move far to the right (mean becomes 12).</p><p>👉 That is why the mean is <strong>sensitive to extreme values</strong>. Remember this; it comes back again and again.</p></div>
+   <div class="indo"><b class="lb">Singkatnya:</b> Mean adalah titik keseimbangan (seperti jungkat-jungkit). Nilai yang sangat jauh akan “menarik” mean ke arahnya.</div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-sec="center" data-k="Median • Simulator 3" data-t="Median = the person standing in the middle of the line" data-f="Sort first, then find the middle.">
+ <div class="sim"><span class="tag">SIMULATOR 3 • Line up the class</span>
+  <div class="lineup" id="lu"><div class="ground"></div></div>
+  <div class="ctl"><button class="btn" id="lus">↔ Line them up by height</button><button class="btn alt" id="lua">➕ Add an 8th student</button><button class="btn alt" id="lur">Reset</button></div>
+  <p class="small" id="lut" style="margin:0"></p></div>
+ <div class="g3 mt">
+  <div class="card"><h3>Step 1: sort</h3><p>Line up from shortest to tallest. <strong>Never skip this!</strong></p></div>
+  <div class="card"><h3>Step 2: odd n</h3><p>Exactly one person is in the middle. Position = <span class="formula">(n+1) ÷ 2</span>. For n = 7, the 4th person.</p></div>
+  <div class="card"><h3>Step 3: even n</h3><p>Two people share the middle. Median = <strong>average of the two</strong>. For n = 8, average of the 4th and 5th.</p></div>
+ </div>
+ <div class="indo"><b class="lb">Singkatnya:</b> Median (nilai tengah): urutkan data, ambil yang di tengah. Jika banyak data genap, rata-ratakan dua data di tengah.</div>
+</section>
+
+<section class="slide" data-sec="center" data-k="Mode" data-t="Mode = the most popular value" data-f="Mode = highest frequency (most often).">
+ <div class="g2">
+  <div class="card"><h3>🍛 Favorite canteen menu (40 students)</h3>
+   <div class="bars"><div><span class="l">Nasi goreng</span><i class="top" style="width:60%"></i><b>15</b></div><div><span class="l">Bakso</span><i style="width:44%"></i><b>11</b></div><div><span class="l">Mie ayam</span><i style="width:32%"></i><b>8</b></div><div><span class="l">Soto</span><i style="width:24%"></i><b>6</b></div></div>
+   <p class="mt">Mode = <strong>nasi goreng</strong>. You <em>cannot</em> compute a mean of foods. For categories, mode is the only center that works.</p></div>
+  <div class="card"><h3>👟 Shoe sizes: 38, 39, 39, 40, 40, 40, 41, 42</h3>
+   <p>40 appears <strong>3 times</strong>, more than any other → <span class="formula">mode = 40</span></p>
+   <table><tr><th>Data</th><th>Mode</th></tr><tr><td>1, 3, 3, 5, 7</td><td>3 (one mode)</td></tr><tr><td>2, 2, 4, 6, 6</td><td>2 and 6 (two modes)</td></tr><tr><td>1, 4, 6, 8</td><td>no mode (all appear once)</td></tr></table>
+  </div>
+ </div>
+ <div class="g2 mt">
+  <div class="analogy"><p>The mode is the <strong>best-seller</strong> in a shop. A shoe shop does not care about the “average size” of 39.9; it wants to know which size to stock the most.</p></div>
+  <div class="indo"><b class="lb">Singkatnya:</b> Modus = nilai yang paling sering muncul. Bisa satu, dua, atau tidak ada sama sekali.</div>
+ </div>
+</section>
+
+<section class="slide" data-sec="center" data-k="Worked example" data-t="Let’s do all three together, step by step" data-f="Read the question: which “M” does it want?">
+ <p>Quiz scores of 7 students: <strong>9, 6, 14, 4, 7, 10, 6</strong></p>
+ <div class="g2">
+  <div data-steps>
+   <div class="steplist">
+    <div class="rv"><b class="s">1</b><strong>Sort:</strong> 4, 6, 6, 7, 9, 10, 14 (n = 7)</div>
+    <div class="rv"><b class="s">2</b><strong>Mean:</strong> 4+6+6+7+9+10+14 = 56; 56 ÷ 7 = <span class="formula">8</span></div>
+    <div class="rv"><b class="s">3</b><strong>Median:</strong> n = 7 is odd, position (7+1) ÷ 2 = 4th → <span class="formula">7</span></div>
+    <div class="rv"><b class="s">4</b><strong>Mode:</strong> 6 appears twice, all others once → <span class="formula">6</span></div>
+    <div class="rv"><b class="s">5</b><strong>Check:</strong> if we remove the 14 (n = 6), the median becomes (6 + 7) ÷ 2 = 6.5</div>
+   </div>
+   <div class="ctl"><button class="btn nx">Show next step ▶</button><button class="btn alt rs">Reset</button></div>
+  </div>
+  <div class="card"><h3>Same data, three different “typical” values</h3><div class="chart" id="c7"></div>
+   <p class="small" style="margin-top:.6em">They differ because each one has a different definition. The large score 14 pulls the <strong>mean</strong> (8) above the <strong>median</strong> (7).</p></div>
+ </div>
+ <div class="key"><p><strong>Memory trick:</strong> mean = <em>fair share</em>, median = <em>middle</em>, mode = <em>most</em>.</p></div>
+</section>
+
+<section class="slide" data-sec="center" data-k="Outliers • Simulator 4" data-t="When a “sultan” joins the class" data-f="Ask whether an unusual value is valid and relevant.">
+ <div class="g2 w64">
+  <div class="sim"><span class="tag">SIMULATOR 4 • Outlier lab</span>
+   <p class="small">Daily pocket money of 4 students (in Rp thousand): 10, 11, 12, 13. A new student joins. Drag the slider (or press Play) to make the new student richer.</p>
+   <div class="ctl"><label for="r2"><strong>New student:</strong> Rp <span id="v2">14</span>k</label><input type="range" id="r2" min="14" max="100" value="14"><button class="btn" id="p2">▶ Play</button></div>
+   <div class="chart" id="c2"></div>
+   <p class="small leg" style="margin:.5em 0 0"><i style="background:#1d4ed8"></i>mean &nbsp; <i style="background:var(--red)"></i>median &nbsp; <i style="background:var(--gold)"></i>range</p>
+   <div class="stats" id="s2"></div></div>
+  <div>
+   <div class="analogy"><p>A super-rich student (a “sultan”) with Rp 100k joins. Now the <strong>mean</strong> says the class typically gets Rp 29k a day, but <strong>4 of 5 students</strong> get only 10–13k! The mean has been pulled. The <strong>median</strong> (12k) still tells the truth about a typical student.</p></div>
+   <div class="key"><p>An <strong>outlier</strong> <span class="id">pencilan</span> is a value far away from the rest. The median is <strong>resistant</strong> (hardly moves); the mean is <strong>not</strong>.</p></div>
+   <div class="indo"><b class="lb">Singkatnya:</b> Pencilan menarik mean, tetapi median hampir tidak berubah. Jangan langsung hapus pencilan, cari tahu dulu penyebabnya.</div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-sec="center" data-k="Decision guide" data-t="Which center should I use?" data-f="Choose the center that tells the most honest story.">
+ <div class="g2">
+  <div class="flow">
+   <div class="q">Is the data numbers?</div>
+   <div class="row"><div class="ans">No (colors, menus, brands)<b class="pick">→ MODE</b></div><div class="ans">Yes ↓</div></div>
+   <div class="arrow">↓</div>
+   <div class="q">Are there outliers, or a long tail?</div>
+   <div class="row"><div class="ans">Yes<b class="pick">→ MEDIAN</b><span class="small">resistant to extremes</span></div><div class="ans">No, roughly balanced<b class="pick">→ MEAN</b><span class="small">uses every value</span></div></div>
+  </div>
+  <div class="card"><h3>Real situations</h3>
+   <table><tr><th>Situation</th><th>Best center</th></tr>
+   <tr><td>House prices in a city (a few mansions)</td><td><strong>Median</strong></td></tr>
+   <tr><td>Heights of students in a class</td><td><strong>Mean</strong></td></tr>
+   <tr><td>Most common jersey size to order</td><td><strong>Mode</strong></td></tr>
+   <tr><td>Salaries in a company with a rich CEO</td><td><strong>Median</strong></td></tr>
+   <tr><td>Daily temperature over a calm month</td><td><strong>Mean</strong></td></tr></table>
+   <div class="indo"><b class="lb">Singkatnya:</b> Data kategori → modus. Ada pencilan/miring → median. Data seimbang → mean.</div></div>
+ </div>
+</section>
+
+<!-- ============ SPREAD ============ -->
+<section class="slide divider" data-sec="spread" data-name="Spread">
+ <div class="part">Part 2 of 5</div>
+ <h1>📏 Spread: how different are the values?</h1>
+ <p>Two things can have the <strong>same average</strong> and still be completely different. Spread tells us how <strong>consistent</strong> or <strong>predictable</strong> data is.</p>
+ <div class="qs"><span>Range</span><span>Quartiles & IQR</span><span>MAD</span><span>Standard deviation</span></div>
+ <div class="deco">📏</div><div class="bignum">2</div>
+</section>
+
+<section class="slide" data-sec="spread" data-k="Why spread matters" data-t="Same average, very different experience" data-f="Center alone is not enough. Always ask: how spread out?">
+ <p>Travel times to school (minutes) over 6 days. <strong>Both routes average exactly 30 minutes.</strong></p>
+ <div class="card"><div class="chart" id="csp"></div></div>
+ <div class="g3 mt">
+  <div class="card"><h3>🚌 Route A</h3><p>28, 29, 30, 30, 31, 32<br>Always about 30. <strong>Predictable.</strong></p></div>
+  <div class="card"><h3>🚗 Route B</h3><p>15, 20, 30, 35, 40, 40<br>Sometimes fast, sometimes 40 min. <strong>Risky!</strong></p></div>
+  <div class="analogy" style="margin:0"><p>Two archers both average the bullseye. One’s arrows land tightly together; the other’s are all over the target. Who would you trust? The one with the <strong>smaller spread</strong>.</p></div>
+ </div>
+ <div class="indo"><b class="lb">Singkatnya:</b> Sebaran (spread) mengukur seberapa jauh data berbeda satu sama lain. Sebaran kecil = konsisten; sebaran besar = bervariasi.</div>
+</section>
+
+<section class="slide" data-sec="spread" data-k="Range" data-t="Range: the distance from smallest to largest" data-f="Range is quick but fragile.">
+ <div class="g2">
+  <div class="card"><h3>Formula</h3><div class="formula">Range = Maximum − Minimum</div>
+   <p class="mt">Route A: 32 − 28 = <strong>4 min</strong> &nbsp;|&nbsp; Route B: 40 − 15 = <strong>25 min</strong></p>
+   <div data-steps><h3 class="mt">⚠️ The weakness</h3>
+    <p>Test scores: 60, 65, 70, 72, 75 → range = 75 − 60 = <strong>15</strong></p>
+    <p class="rv">One student was sick and scored 20: 20, 60, 65, 70, 72, 75</p>
+    <p class="rv">New range = 75 − 20 = <strong style="color:var(--red)">55</strong>. One value nearly <strong>quadrupled</strong> the range!</p>
+    <div class="ctl"><button class="btn nx">What if… ▶</button><button class="btn alt rs">Reset</button></div></div>
+  </div>
+  <div>
+   <div class="analogy"><p>The range is like measuring a class by only looking at the <strong>shortest and tallest</strong> students. If one basketball player joins, the “class height range” suddenly looks huge, even though everyone else is the same.</p></div>
+   <div class="key"><p>Range uses <strong>only two values</strong>, so it is <strong>not resistant</strong> to outliers. That’s why we need better tools → next slide.</p></div>
+   <div class="indo"><b class="lb">Singkatnya:</b> Jangkauan = data terbesar − data terkecil. Mudah dihitung, tapi sangat terpengaruh pencilan.</div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-sec="spread" data-k="Quartiles" data-t="Quartiles: cut the sorted line into 4 equal groups" data-f="Order the data before finding quartiles.">
+ <p>Data (9 values): <strong>2, 4, 5, 7, 8, 9, 12, 14, 16</strong></p>
+ <div class="g2 w64">
+  <div class="card" id="qbox" data-stepper>
+   <div class="chips" id="qchips" style="font-size:1.15em;justify-content:center;min-height:3.6em"></div>
+   <div class="steplist">
+    <div class="rv"><b class="s">1</b><strong>Median (Q₂)</strong> = 5th value = <strong>8</strong>. It splits the data into a lower half and an upper half.</div>
+    <div class="rv"><b class="s">2</b><strong>Q₁</strong> = median of the lower half (2, 4, 5, 7) = (4 + 5) ÷ 2 = <strong>4.5</strong></div>
+    <div class="rv"><b class="s">3</b><strong>Q₃</strong> = median of the upper half (9, 12, 14, 16) = (12 + 14) ÷ 2 = <strong>13</strong></div>
+    <div class="rv"><b class="s">4</b><strong>IQR</strong> = Q₃ − Q₁ = 13 − 4.5 = <span class="formula">8.5</span> (the width of the middle 50%)</div>
+   </div>
+   <div class="ctl"><button class="btn nx">Show next step ▶</button><button class="btn alt rs">Reset</button></div>
+  </div>
+  <div>
+   <div class="analogy"><p>“Quart-” means <strong>four</strong>, like a <em>quarter</em> of a pizza. Q₁, Q₂, Q₃ are the three cuts that slice the sorted line into 4 groups, each with about <strong>25%</strong> of the data.</p></div>
+   <div class="card"><h3>Five-number summary</h3><table><tr><th>Min</th><th>Q₁</th><th>Median</th><th>Q₃</th><th>Max</th></tr><tr><td>2</td><td>4.5</td><td>8</td><td>13</td><td>16</td></tr></table>
+    <p class="small mt">With an odd n, the median is left out of both halves. Methods differ slightly between textbooks; follow what the question gives you.</p></div>
+   <div class="indo"><b class="lb">Singkatnya:</b> Kuartil membagi data terurut menjadi 4 bagian sama banyak. IQR (jangkauan antarkuartil) = Q₃ − Q₁.</div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-sec="spread" data-k="Build a box plot" data-t="From dots to a box plot, one step at a time" data-f="A box plot is just the five-number summary, drawn.">
+ <div class="g2 w64">
+  <div class="card" id="bbox" data-stepper>
+   <div class="chart" id="cbb"></div>
+   <div class="ctl"><button class="btn nx">Build next part ▶</button><button class="btn alt rs">Reset</button></div>
+   <div class="steplist" style="display:none"><div class="rv"></div><div class="rv"></div><div class="rv"></div><div class="rv"></div><div class="rv"></div></div>
+  </div>
+  <div>
+   <div class="card soft"><h3 id="bbt">Step 0: the data as dots</h3><p id="bbp">Here are our 9 values on a number line. Press the button to build the box plot.</p></div>
+   <div class="analogy"><p>The <strong>box</strong> is the “normal crowd”: the middle 50% of the class. The <strong>whiskers</strong> reach out to the students at the edges.</p></div>
+   <div class="indo"><b class="lb">Singkatnya:</b> Diagram kotak (box plot) dibuat dari 5 bilangan: min, Q₁, median, Q₃, maks. Panjang kotak = IQR.</div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-sec="spread" data-k="Distance from the mean" data-t="The idea behind MAD and standard deviation" data-f="Spread = how far values typically are from the mean.">
+ <p>Data: <strong>2, 4, 4, 4, 5, 5, 7, 9</strong>, mean = 40 ÷ 8 = <strong>5</strong>. The arrows show how far each value is from the mean.</p>
+ <div class="g2 w64">
+  <div class="card"><div class="chart" id="cdist"></div></div>
+  <div>
+   <div class="analogy"><p>Walk <strong>3 steps forward and 3 steps back</strong>. Your position changes by 0, but you still walked <strong>6 steps</strong>!</p><p>Deviations from the mean are the same: <strong>+ and − cancel to 0</strong>. So we must remove the signs, either by taking the absolute value (→ MAD) or by squaring (→ SD).</p></div>
+   <div class="card"><h3>Two ways to measure “typical distance”</h3><p><strong>MAD</strong> <span class="id">simpangan rata-rata</span>: average of |x − mean|</p><p><strong>SD</strong> <span class="id">simpangan baku</span>: square, average, then square root. Far values count <em>extra</em>.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-sec="spread" data-k="MAD & SD step by step" data-t="Let’s calculate MAD and SD together" data-f="Press the button to reveal each step.">
+ <div class="g2" id="sdbox" data-stepper>
+  <div class="card"><table id="sdt"></table><div class="ctl"><button class="btn nx">Show next step ▶</button><button class="btn alt rs">Reset</button></div></div>
+  <div><div class="card soft" id="sdn"></div>
+   <div class="key"><p><strong>SAT tip:</strong> you will rarely compute SD by hand. You need to know what it <em>means</em>: <strong>the more the values spread away from the mean, the larger the SD.</strong></p></div>
+   <div class="indo"><b class="lb">Singkatnya:</b> Simpangan baku (SD) ≈ jarak “khas” data dari mean. SD kecil = data rapat; SD besar = data menyebar. (SD sampel membagi dengan n − 1.)</div></div>
+ </div>
+</section>
+
+<section class="slide" data-sec="spread" data-k="Spread • Simulator 5" data-t="Stretch the data and watch every spread measure react" data-f="Choose the measure that answers the question.">
+ <div class="sim"><span class="tag">SIMULATOR 5 • Spread lab</span>
+  <p class="small">The data always has mean 50. Slide to stretch or squeeze it. The teal band = mean ± 1 SD. Then tick the box to add an outlier at 98.</p>
+  <div class="ctl"><label for="r3"><strong>Spread:</strong> <span id="v3">3</span></label><input type="range" id="r3" min="1" max="10" value="3"><label><input type="checkbox" id="o3"> add outlier (98)</label></div>
+  <div class="chart" id="c3"></div>
+  <div class="stats" id="s3"></div></div>
+ <div class="g2 mt">
+  <div class="key"><p><strong>Observe:</strong> stretching makes range, IQR, SD, and MAD <em>all</em> grow together.</p></div>
+  <div class="key"><p><strong>Compare:</strong> with the outlier, the range and SD jump (red). The IQR barely moves. Why?</p></div>
+ </div>
+</section>
+
+<section class="slide" data-sec="spread" data-k="Spread summary" data-t="Your spread toolbox at a glance" data-f="Resistant = not easily fooled by outliers.">
+ <div class="card"><table>
+  <tr><th>Measure</th><th>Formula</th><th>Plain meaning</th><th>Outlier-resistant?</th><th>Pair it with</th></tr>
+  <tr><td><strong>Range</strong></td><td>Max − Min</td><td>total width of the data</td><td>❌ No</td><td>—</td></tr>
+  <tr><td><strong>IQR</strong></td><td>Q₃ − Q₁</td><td>width of the middle 50%</td><td>✅ Yes</td><td>Median</td></tr>
+  <tr><td><strong>MAD</strong></td><td>mean of |x − mean|</td><td>average distance from the mean</td><td>❌ No</td><td>Mean</td></tr>
+  <tr><td><strong>SD</strong></td><td>√(Σ(x − mean)² ÷ n)</td><td>typical distance from the mean</td><td>❌ No</td><td>Mean</td></tr>
+ </table></div>
+ <div class="g3 mt">
+  <div class="card top"><h3>Small spread</h3><p>Values are close together → <strong>consistent</strong>, predictable.</p></div>
+  <div class="card top"><h3>Large spread</h3><p>Values are far apart → <strong>varied</strong>, less predictable.</p></div>
+  <div class="card top"><h3>Spread is never negative</h3><p>The smallest possible spread is 0, when all values are equal.</p></div>
+ </div>
+ <div class="indo"><b class="lb">Singkatnya:</b> Median berpasangan dengan IQR (tahan pencilan). Mean berpasangan dengan SD/MAD.</div>
+</section>
+
+<!-- ============ SHAPE ============ -->
+<section class="slide divider" data-sec="shape" data-name="Shape">
+ <div class="part">Part 3 of 5</div>
+ <h1>⛰️ Shape: what does the data look like?</h1>
+ <p>Draw the data and step back. Is it a balanced mountain? A slide with a long tail? Two hills? The shape tells you <strong>where the mean and median sit</strong>.</p>
+ <div class="qs"><span>Symmetric</span><span>Skewed right</span><span>Skewed left</span><span>Peaks, gaps, outliers</span></div>
+ <div class="deco">⛰️</div><div class="bignum">3</div>
+</section>
+
+<section class="slide" data-sec="shape" data-k="Three basic shapes" data-t="Follow the tail: it tells you the skew" data-f="Name the skew by the long tail, not by the tall bars.">
+ <div class="g3">
+  <div class="card top"><h3>Symmetric <span class="id">simetris</span></h3><div class="chart" id="csh1"></div><p class="small mt">Both sides mirror each other.<br><strong>mean ≈ median</strong><br>e.g. heights of students</p></div>
+  <div class="card top"><h3>Skewed right <span class="id">menceng kanan</span></h3><div class="chart" id="csh2"></div><p class="small mt">Long tail to the <strong>right</strong>.<br><strong>mean &gt; median</strong><br>e.g. daily phone screen time, income</p></div>
+  <div class="card top"><h3>Skewed left <span class="id">menceng kiri</span></h3><div class="chart" id="csh3"></div><p class="small mt">Long tail to the <strong>left</strong>.<br><strong>mean &lt; median</strong><br>e.g. scores on a very easy test</p></div>
+ </div>
+ <div class="g2 mt">
+  <div class="analogy"><p>Think of a <strong>playground slide</strong>: the tall ladder is where most data is, and the long gentle slope is the <strong>tail</strong>. The skew is named after where the slope goes.</p><p>The <strong>mean is like a kite on a string</strong>: the tail’s wind pulls it toward the tail. The median stays nearer the crowd.</p></div>
+  <div class="indo"><b class="lb">Singkatnya:</b> Arah kemiringan = arah “ekor” yang panjang. Menceng kanan: mean &gt; median. Menceng kiri: mean &lt; median. <span class="small">(<b style="color:#1d4ed8">biru</b> = mean, <b style="color:var(--red)">merah putus-putus</b> = median)</span></div>
+ </div>
+</section>
+
+<section class="slide" data-sec="shape" data-k="Shape • Simulator 6" data-t="Switch the shape and watch mean vs median" data-f="Shape predicts how mean and median compare.">
+ <div class="sim"><span class="tag">SIMULATOR 6 • Shape explorer</span>
+  <div class="ctl" id="bt4"></div>
+  <div class="chart" id="c4"></div>
+  <p class="small leg" style="margin:.5em 0 0"><i style="background:#1d4ed8"></i>mean &nbsp; <i style="background:var(--red)"></i>median</p>
+  <div class="stats" id="s4"></div></div>
+ <div class="g2 mt">
+  <div class="key"><p><strong>Try:</strong> in “Skewed right,” the tallest bar is on the left, but it is called <em>right</em>-skewed. Why? Look at the tail!</p></div>
+  <div class="key"><p><strong>Bimodal</strong> = two peaks, often two different groups mixed (e.g. heights of 7th graders + 12th graders). <strong>Uniform</strong> = all bars about equal.</p></div>
+ </div>
+</section>
+
+<section class="slide" data-sec="shape" data-k="More features" data-t="Peaks, gaps, clusters, and the outlier rule" data-f="Describe what is visible; investigate what is not.">
+ <div class="g2">
+  <div>
+   <div class="card"><h3>Words to describe a graph</h3><ul><li><strong>Peak</strong>: a high point. One peak = unimodal, two = bimodal.</li><li><strong>Cluster</strong>: a crowded group of values.</li><li><strong>Gap</strong>: an empty interval with no data.</li><li><strong>Outlier</strong>: a value far from the rest.</li></ul></div>
+   <div class="card soft mt"><h3>The 1.5 × IQR rule (official outlier test)</h3><p>A value is an outlier if it is</p><p><span class="formula">below Q₁ − 1.5 × IQR</span> or <span class="formula">above Q₃ + 1.5 × IQR</span></p><p class="small">These two boundaries are called <strong>fences</strong> <span class="id">pagar</span>. Anything outside the fence is “outside the yard.”</p></div>
+  </div>
+  <div class="card" data-steps><h3>Example: 3, 4, 5, 5, 6, 6, 7, 8, 30</h3>
+   <div class="steplist">
+    <div class="rv"><b class="s">1</b>Q₁ = 4.5, Q₃ = 7.5 → IQR = <strong>3</strong></div>
+    <div class="rv"><b class="s">2</b>1.5 × IQR = 1.5 × 3 = <strong>4.5</strong></div>
+    <div class="rv"><b class="s">3</b>Fences: 4.5 − 4.5 = <strong>0</strong> and 7.5 + 4.5 = <strong>12</strong></div>
+    <div class="rv"><b class="s">4</b>30 &gt; 12 → <strong style="color:var(--red)">30 is an outlier</strong> (red dot below)</div>
+   </div>
+   <div class="ctl"><button class="btn nx">Show next step ▶</button><button class="btn alt rs">Reset</button></div>
+   <div class="chart" id="c14"></div>
+   <p class="small mt">Careful: finding an outlier does not explain <em>why</em>. Typing error? A real champion? Check the context.</p></div>
+ </div>
+</section>
+
+<!-- ============ DISPLAYS ============ -->
+<section class="slide divider" data-sec="display" data-name="Displays">
+ <div class="part">Part 4 of 5</div>
+ <h1>📊 Displays: choose the right picture</h1>
+ <p>The same data can be drawn in different ways. Each display shows some things clearly and <strong>hides</strong> others.</p>
+ <div class="qs"><span>Dot plot</span><span>Frequency table</span><span>Histogram</span><span>Box plot</span></div>
+ <div class="deco">📊</div><div class="bignum">4</div>
+</section>
+
+<section class="slide" data-sec="display" data-k="Data displays" data-t="Four displays, four strengths" data-f="The best display depends on data size and purpose.">
+ <div class="g4">
+  <div class="card top"><h3>Dot plot</h3><div class="chart" id="dv1"></div><p class="small mt">✅ every single value<br>✅ small data sets<br>❌ messy with 500 values</p></div>
+  <div class="card top"><h3>Histogram</h3><div class="chart" id="dv2"></div><p class="small mt">✅ shape of big data<br>✅ bars touch (continuous)<br>❌ hides exact values</p></div>
+  <div class="card top"><h3>Box plot</h3><div class="chart" id="dv3"></div><p class="small mt">✅ five-number summary<br>✅ comparing groups<br>❌ hides peaks & gaps</p></div>
+  <div class="card top"><h3>Frequency table</h3><table class="small"><tr><th>Score</th><th>Freq.</th></tr><tr><td>60–69</td><td>4</td></tr><tr><td>70–79</td><td>9</td></tr><tr><td>80–89</td><td>6</td></tr><tr><td>90–99</td><td>1</td></tr></table><p class="small mt">✅ exact counts<br>❌ harder to “see” shape</p></div>
+ </div>
+ <div class="g2 mt">
+  <div class="analogy"><p>Displays are like <strong>maps</strong>. A street map, a satellite photo, and a subway map show the same city, but each one is useful for a different question.</p></div>
+  <div class="indo"><b class="lb">Singkatnya:</b> Dot plot = tiap data terlihat. Histogram = bentuk data besar. Box plot = ringkasan 5 bilangan & membandingkan kelompok.</div>
+ </div>
+</section>
+
+<section class="slide" data-sec="display" data-k="Frequency table → histogram" data-t="From a table of counts to a histogram" data-f="Relative frequency = count ÷ total.">
+ <p>15 students’ reading times were sorted into “baskets” (<strong>bins</strong>) of 10 minutes.</p>
+ <div class="g2">
+  <div class="card" data-steps>
+   <table><tr><th>Minutes</th><th>Frequency<br><span class="small">(count)</span></th><th>Relative frequency<br><span class="small">(count ÷ total)</span></th></tr>
+   <tr><td>0–9</td><td>3</td><td class="rv">3 ÷ 15 = 20%</td></tr>
+   <tr><td>10–19</td><td>7</td><td class="rv">7 ÷ 15 ≈ 46.7%</td></tr>
+   <tr><td>20–29</td><td>5</td><td class="rv">5 ÷ 15 ≈ 33.3%</td></tr>
+   <tr><th>Total</th><th>15</th><th class="rv">100%</th></tr></table>
+   <div class="ctl"><button class="btn nx">Compute next ▶</button><button class="btn alt rs">Reset</button></div>
+   <div class="analogy"><p>Sorting laundry into <strong>baskets</strong>: you know how many clothes are in each basket, but not exactly which shirt. A histogram is a picture of the baskets.</p></div></div>
+  <div class="card"><div class="chart" id="cft"></div>
+   <p class="small mt">Questions like “What percent read at least 10 minutes?” → (7 + 5) ÷ 15 = <strong>80%</strong>. Always check if the y-axis shows <strong>counts</strong> or <strong>percents</strong>.</p>
+   <div class="indo"><b class="lb">Singkatnya:</b> Frekuensi = banyaknya. Frekuensi relatif = frekuensi ÷ total (dalam persen). Batang histogram saling menempel.</div></div>
+ </div>
+</section>
+
+<section class="slide" data-sec="display" data-k="Histograms • Simulator 7" data-t="The size of the baskets changes the picture" data-f="Same data, different bins: always check the intervals.">
+ <div class="sim"><span class="tag">SIMULATOR 7 • Bin explorer</span>
+  <p class="small">30 students’ reading times (minutes). Slide the bin width and watch the shape change.</p>
+  <div class="ctl"><label for="r5"><strong>Bin width:</strong> <span id="v5">10</span> min</label><input type="range" id="r5" min="0" max="6" value="2"></div>
+  <div class="chart" id="c5"></div>
+  <p class="small" id="s5" style="margin:.5em 0 0"></p></div>
+ <div class="g2 mt">
+  <div class="key"><p><strong>Lesson:</strong> too narrow looks bumpy; too wide hides the pattern. Read the bin intervals and the y-axis <em>before</em> judging.</p></div>
+  <div class="indo"><b class="lb">Singkatnya:</b> Lebar kelas (bin) memengaruhi tampilan histogram. Data sama bisa terlihat berbeda.</div>
+ </div>
+</section>
+
+<section class="slide" data-sec="display" data-k="Reading box plots" data-t="Anatomy of a box plot (and the SAT traps)" data-f="Each section holds about 25% of the data, whatever its length.">
+ <div class="card"><div class="chart" id="cba"></div></div>
+ <div class="g2 mt">
+  <div class="card"><h3>How to read it</h3><ul><li>Line inside the box = <strong>median</strong>.</li><li>Box length = <strong>IQR</strong> (middle 50%).</li><li>Whisker ends = <strong>min and max</strong> (unless there are outliers).</li><li>Check the <strong>scale</strong> before comparing two plots.</li></ul></div>
+  <div class="card" style="background:#fff5f5;border-color:#f6d0d0"><h3>⚠️ Common SAT traps</h3><ul><li>A <strong>longer section does NOT mean more data</strong>. It means the data there are more spread out. Each quarter still has ~25%.</li><li>A box plot cannot show how many values there are, or peaks.</li><li>A histogram cannot show exact values.</li><li>A graph that shows association does not prove causation.</li></ul></div>
+ </div>
+</section>
+
+<section class="slide" data-sec="display" data-k="Compare distributions" data-t="Compare two classes using the same language" data-f="Compare center, then spread, then shape and unusual values.">
+ <div class="card"><div class="chart" id="c18"></div></div>
+ <div class="g2 mt">
+  <div class="card" id="t18"></div>
+  <div class="card soft"><h3>Sentence frame</h3><p>“Class ___ has a higher <strong>median</strong>, so its typical score is higher. Class ___ has a smaller <strong>IQR</strong>, so its middle scores are more <strong>consistent</strong>.”</p><p class="small">Always (1) name the statistic and (2) say what it means in context.</p>
+   <div class="indo"><b class="lb">Singkatnya:</b> Bandingkan pusat (median), lalu sebaran (IQR/range), lalu bentuk & pencilan.</div></div>
+ </div>
+</section>
+
+
+<!-- ============ SCATTERPLOTS ============ -->
+<section class="slide divider" data-sec="scatter" data-name="Scatterplots">
+ <div class="part">Part 5 of 5</div>
+ <h1>📈 Scatterplots: two variables at once</h1>
+ <p>So far each data set had <strong>one</strong> variable. Now every person gives us <strong>two</strong> numbers, and we ask: <strong>do they move together?</strong></p>
+ <div class="qs"><span>Scatter diagram</span><span>Direction, strength, form</span><span>Line of best fit</span><span>Prediction</span></div>
+ <div class="deco">📈</div><div class="bignum">5</div>
+</section>
+
+<section class="slide" data-sec="scatter" data-k="Reading a scatterplot" data-t="One dot = one student, two numbers" data-f="Read the axes first: what is x, what is y, and what are the units?">
+ <div class="g2 w64">
+  <div class="card"><div class="chart" id="sc1"></div>
+   <p class="small mt">10 students: hours studied per week (x) and test score (y). The circled dot is a student who studied <strong>5 hours</strong> and scored <strong>77</strong>.</p></div>
+  <div>
+   <div class="card top"><h3>How to read it</h3>
+    <ul><li><strong>x-axis</strong> (horizontal): the <em>explanatory</em> variable, the one we use to explain or predict.</li><li><strong>y-axis</strong> (vertical): the <em>response</em> variable, the one we want to predict.</li><li>Each dot sits at the point (x, y) for <strong>one</strong> person or object.</li></ul></div>
+   <div class="analogy"><p>A scatterplot is a <strong>map of pins</strong>. Each pin has two coordinates: how far across (x) and how far up (y). Look at the whole crowd of pins and ask: <em>do they drift up, drift down, or scatter everywhere?</em></p></div>
+  </div>
+ </div>
+ <div class="indo"><b class="lb">Singkatnya:</b> Diagram pencar (scatterplot): satu titik = satu data berpasangan (x, y). Sumbu-x = variabel penjelas, sumbu-y = variabel yang diprediksi.</div>
+</section>
+
+<section class="slide" data-sec="scatter" data-k="Scatterplots • Simulator 9" data-t="Change the pattern, change the strength" data-f="r near +1 or −1 = strong straight-line pattern. r near 0 = no straight-line pattern.">
+ <div class="sim"><span class="tag">SIMULATOR 9 • Association explorer</span>
+  <p class="small">30 points. Pick a pattern, then slide the <strong>noise</strong> (how scattered the points are) and watch the correlation coefficient <strong>r</strong>.</p>
+  <div class="ctl" id="bt9"></div>
+  <div class="ctl"><label for="r9"><strong>Noise:</strong> <span id="v9">2</span></label><input type="range" id="r9" min="0" max="10" value="2"></div>
+  <div class="chart" id="c9"></div>
+  <div class="stats" id="s9"></div>
+  <p class="small" id="m9" style="margin:.5em 0 0"></p></div>
+ <div class="g2 mt">
+  <div class="key"><p><strong>Lesson:</strong> r always lies between −1 and +1. The <strong>sign</strong> is the direction, the <strong>size</strong> (distance from 0) is the strength. Try “Curved”: r is near 0 even though the pattern is obvious, because r only measures <em>straight-line</em> association.</p></div>
+  <div class="indo"><b class="lb">Singkatnya:</b> r dekat +1 = naik kuat, r dekat −1 = turun kuat, r dekat 0 = tidak ada pola garis lurus. Pola melengkung bisa punya r ≈ 0.</div>
+ </div>
+</section>
+
+<section class="slide" data-sec="scatter" data-k="Describing association" data-t="Describe any scatterplot with direction, strength, and form" data-f="Direction + strength + form + unusual points = a complete description.">
+ <div class="g4">
+  <div class="card top"><h3>Positive <span class="id">positif</span></h3><div class="chart" id="sd1"></div><p class="small mt">As x ↑, y ↑.<br><strong>Strong</strong>: points hug a line.</p></div>
+  <div class="card top"><h3>Negative <span class="id">negatif</span></h3><div class="chart" id="sd2"></div><p class="small mt">As x ↑, y ↓.<br><strong>Weaker</strong>: more scatter.</p></div>
+  <div class="card top"><h3>No association</h3><div class="chart" id="sd3"></div><p class="small mt">No visible pattern.<br>r ≈ 0.</p></div>
+  <div class="card top"><h3>Non-linear</h3><div class="chart" id="sd4"></div><p class="small mt">A clear <strong>curve</strong>.<br>A straight line is a poor model.</p></div>
+ </div>
+ <div class="g2 mt">
+  <div class="analogy"><p><strong>Ice cream and sunburn:</strong> both go up in summer, so their scatterplot shows a strong positive association. But ice cream does not <em>cause</em> sunburn; the hidden cause is sunny weather. <strong>Association ≠ causation.</strong></p></div>
+  <div class="indo"><b class="lb">Singkatnya:</b> Deskripsikan: arah (positif/negatif), kekuatan (kuat/lemah), bentuk (lurus/melengkung), dan titik tak biasa. Hubungan ≠ sebab-akibat.</div>
+ </div>
+</section>
+
+<section class="slide" data-sec="scatter" data-k="Line of best fit" data-t="A line of best fit summarizes the trend" data-f="The best line does not touch every dot. It stays as close as possible to all of them.">
+ <div class="g2 w64">
+  <div class="card"><div class="chart" id="sb1"></div>
+   <p class="small mt">The red segments are <strong>residuals</strong>: the vertical gap between each actual dot and the line.</p></div>
+  <div>
+   <div class="card top"><h3>What “best” means</h3>
+    <ul><li>Draw a straight line through the cloud of points.</li><li>For each dot, measure the vertical miss (the residual).</li><li>The <strong>least-squares</strong> line is the one with the smallest total of <strong>squared</strong> residuals.</li></ul>
+    <div class="key"><p>Roughly half the dots are above the line and half below. The line always passes through the point (<strong>x̄</strong>, <strong>ȳ</strong>), the mean of x and the mean of y.</p></div></div>
+   <div class="analogy"><p>Think of a <strong>bus route</strong> through a town: it cannot stop at every house, but it is placed so that, on average, everyone lives close to it.</p></div>
+  </div>
+ </div>
+ <div class="indo"><b class="lb">Singkatnya:</b> Garis regresi (garis terbaik) = garis lurus yang paling dekat ke semua titik. Selisih vertikal titik ke garis disebut residu.</div>
+</section>
+
+<section class="slide" data-sec="scatter" data-k="Scatterplots • Simulator 10" data-t="Be the regression: fit the line yourself" data-f="Smaller total squared residual = a better line. The best line makes it as small as possible.">
+ <div class="sim"><span class="tag">SIMULATOR 10 • Fit-the-line challenge</span>
+  <p class="small">Move the sliders to place your own line ŷ = b + m·x. Can you get close to the least-squares line?</p>
+  <div class="ctl"><label for="m10"><strong>Slope m:</strong> <span id="mv10">2</span></label><input type="range" id="m10" min="0" max="10" step="0.1" value="2"></div>
+  <div class="ctl"><label for="b10"><strong>Intercept b:</strong> <span id="bv10">60</span></label><input type="range" id="b10" min="30" max="80" step="0.5" value="60"></div>
+  <div class="ctl"><button class="btn alt on" id="rs10">Residuals: ON</button><button class="btn alt" id="bs10">Reveal the best-fit line</button></div>
+  <div class="chart" id="c10"></div>
+  <div class="stats" id="s10"></div>
+  <p class="small" id="m10t" style="margin:.5em 0 0"></p></div>
+ <div class="g2 mt">
+  <div class="key"><p><strong>Lesson:</strong> your line can look good and still be beaten. Least squares gives the smallest possible sum of squared residuals, and no other straight line can do better.</p></div>
+  <div class="indo"><b class="lb">Singkatnya:</b> Geser kemiringan dan intersep agar total kuadrat residu sekecil mungkin. Garis regresi adalah yang terkecil.</div>
+ </div>
+</section>
+
+<section class="slide" data-sec="scatter" data-k="Building the equation • Simulator 12" data-t="Step 1: two points on the line give you its equation" data-f="Slope first, then intercept, then write ŷ = mx + b.">
+ <div class="g2 w64">
+  <div class="sim"><span class="tag">SIMULATOR 12 • Equation builder</span>
+   <p class="small">Move the two points. The line, slope, intercept and equation update. (Defaults: the points from Worked Problem 2.)</p>
+   <div class="g2" style="gap:.2em 1em">
+    <div class="ctl"><label for="px1"><strong>x₁:</strong> <span id="vx1">2</span></label><input type="range" id="px1" min="0" max="12" step="1" value="2"></div>
+    <div class="ctl"><label for="py1"><strong>y₁:</strong> <span id="vy1">10</span></label><input type="range" id="py1" min="0" max="50" step="1" value="10"></div>
+    <div class="ctl"><label for="px2"><strong>x₂:</strong> <span id="vx2">8</span></label><input type="range" id="px2" min="0" max="12" step="1" value="8"></div>
+    <div class="ctl"><label for="py2"><strong>y₂:</strong> <span id="vy2">34</span></label><input type="range" id="py2" min="0" max="50" step="1" value="34"></div>
+   </div>
+   <div class="chart" id="c12"></div>
+   <div class="stats" id="s12"></div></div>
+  <div>
+   <div class="card top"><h3>Three steps</h3>
+    <div class="steplist"><div><b class="s">1</b> Slope: <span class="formula">m = (y₂ − y₁) ÷ (x₂ − x₁)</span></div><div><b class="s">2</b> Intercept: put one point into y = mx + b and solve: <span class="formula">b = y₁ − m·x₁</span></div><div><b class="s">3</b> Write it: <span class="formula">ŷ = mx + b</span></div></div>
+    <div id="t12b" class="small mt"></div></div>
+   <div class="key"><p><strong>Tip:</strong> the SAT often gives points <em>on the line</em> (read from the graph). Never use two random dots; dots are data, the line is the model.</p></div>
+  </div>
+ </div>
+ <div class="indo"><b class="lb">Singkatnya:</b> Persamaan garis dari dua titik: (1) m = (y₂ − y₁)/(x₂ − x₁), (2) b = y₁ − m·x₁, (3) tulis ŷ = mx + b.</div>
+</section>
+
+<section class="slide" data-sec="scatter" data-k="Least squares by hand" data-t="Step 2: how the best-fit line is actually calculated" data-f="slope = Σ(x − x̄)(y − ȳ) ÷ Σ(x − x̄)².  intercept = ȳ − slope × x̄.">
+ <div class="g2 w64">
+  <div class="card" id="lsbox"><span class="tag lt">The same 10 students</span>
+   <div style="overflow-x:auto"><table class="small" id="lst"></table></div>
+   <div id="lsn" class="mt"></div>
+   <div class="ctl"><button class="btn nx">Next step ▶</button><button class="btn alt rs">Reset</button></div></div>
+  <div>
+   <div class="card top"><h3>The two formulas</h3>
+    <p><span class="formula">b = Σ(x − x̄)(y − ȳ) ÷ Σ(x − x̄)²</span></p>
+    <p><span class="formula">a = ȳ − b · x̄</span></p>
+    <p class="small">Then the line is <strong>ŷ = a + bx</strong>. The top of the slope fraction measures how x and y move <em>together</em>; the bottom measures how much x <em>spreads</em>.</p></div>
+   <div class="analogy"><p>Think of the slope as <strong>“how much y moves, for the amount x moves”</strong>. If x-values are widely spread and y follows, the slope is steep.</p></div>
+  </div>
+ </div>
+ <div class="indo"><b class="lb">Singkatnya:</b> Hitung rata-rata x̄ dan ȳ → selisih tiap data dari rata-rata → kalikan &amp; kuadratkan → b = Sxy/Sxx → a = ȳ − b·x̄.</div>
+</section>
+
+<section class="slide" data-sec="scatter" data-k="Shortcuts" data-t="Step 3: faster routes (r and SDs, means, Desmos)" data-f="The line always passes through (x̄, ȳ). Use that to finish the equation quickly.">
+ <div class="g2">
+  <div class="card top"><h3>A. From r and the standard deviations</h3>
+   <p><span class="formula">b = r · (s<sub>y</sub> ÷ s<sub>x</sub>)</span> then <span class="formula">a = ȳ − b·x̄</span></p>
+   <p class="small">Our data: r ≈ 0.965, s<sub>x</sub> ≈ 2.31, s<sub>y</sub> ≈ 11.57, so b ≈ 0.965 × (11.57 ÷ 2.31) ≈ <strong>4.83</strong>. Same answer as by hand.</p></div>
+  <div class="card top"><h3>B. Use the point (x̄, ȳ)</h3>
+   <p>The line passes through (x̄, ȳ), so once you know the slope:</p>
+   <p><span class="formula">ŷ − ȳ = b(x − x̄)</span></p>
+   <p class="small">Our data: ŷ − 69.9 = 4.83(x − 4.3). Expand to get ŷ = 49.1 + 4.83x.</p></div>
+ </div>
+ <div class="g2 mt">
+  <div class="card top"><h3>C. Desmos (built into the digital SAT)</h3>
+   <ol class="small"><li>Click <strong>+</strong> → <strong>table</strong>. Type x-values in x₁ and y-values in y₁.</li><li>On a new line type <span class="formula">y₁ ~ m·x₁ + b</span></li><li>Desmos shows <strong>m</strong> (slope), <strong>b</strong> (intercept) and <strong>r</strong>.</li></ol></div>
+  <div class="g2" style="gap:.6em">
+   <div class="card" data-steps><span class="tag lt">Try 1</span><h3 class="small">Slope 3, x̄ = 10, ȳ = 50. Find the equation.</h3>
+    <div class="steplist"><div class="rv">a = ȳ − b·x̄ = 50 − 3(10) = <strong>20</strong></div><div class="rv"><span class="formula">ŷ = 20 + 3x</span></div></div>
+    <div class="ctl"><button class="btn nx">Next ▶</button><button class="btn alt rs">Reset</button></div></div>
+   <div class="card" data-steps><span class="tag lt">Try 2</span><h3 class="small">r = 0.8, s<sub>x</sub> = 5, s<sub>y</sub> = 10. Find the slope.</h3>
+    <div class="steplist"><div class="rv">b = r · s<sub>y</sub> ÷ s<sub>x</sub></div><div class="rv">= 0.8 × 10 ÷ 5 = <span class="formula">1.6</span></div></div>
+    <div class="ctl"><button class="btn nx">Next ▶</button><button class="btn alt rs">Reset</button></div></div>
+  </div>
+ </div>
+ <div class="indo"><b class="lb">Singkatnya:</b> Jalan pintas: b = r·(s<sub>y</sub>/s<sub>x</sub>); garis selalu melalui (x̄, ȳ); di Desmos ketik y₁ ~ m·x₁ + b.</div>
+</section>
+
+<section class="slide" data-sec="scatter" data-k="Equation, slope, residual" data-t="Reading ŷ = 49.1 + 4.83x in context" data-f="Slope = change in predicted y per 1 unit of x. Residual = actual − predicted.">
+ <div class="g2">
+  <div class="card" data-steps><span class="tag lt">Line of best fit for the 10 students</span><h3>ŷ = 49.1 + 4.83x</h3>
+   <div class="steplist">
+    <div class="rv"><b class="s">ŷ</b> (“y-hat”) is the <strong>predicted</strong> test score. x is hours studied per week.</div>
+    <div class="rv"><b class="s">Slope</b> 4.83: each extra hour of study goes with a predicted increase of about <strong>4.83 points</strong>.</div>
+    <div class="rv"><b class="s">Intercept</b> 49.1: the predicted score for <strong>0 hours</strong> of study. (Only meaningful when x = 0 makes sense.)</div>
+    <div class="rv"><b class="s">Predict</b> x = 6: ŷ = 49.1 + 4.83(6) ≈ <strong>78.1</strong>. A student who studied 6 h actually scored 75, so <span class="formula">residual = 75 − 78.1 = −3.1</span> (below the line).</div>
+   </div>
+   <div class="ctl"><button class="btn nx">Next step ▶</button><button class="btn alt rs">Reset</button></div></div>
+  <div class="card"><h3>Every residual in the data</h3><div id="t12"></div>
+   <div class="key"><p>The line passes through (x̄, ȳ) = (4.3, 69.9). The residuals add up to <strong>0</strong>.</p></div></div>
+ </div>
+ <div class="indo"><b class="lb">Singkatnya:</b> Kemiringan = perubahan prediksi y setiap x naik 1. Residu = nilai sebenarnya − nilai prediksi. Titik di atas garis → residu positif.</div>
+</section>
+
+<section class="slide" data-sec="scatter" data-k="Scatterplots • Simulator 11" data-t="Predict inside the data, doubt it outside" data-f="Interpolation (inside the data range) is safer than extrapolation (outside it).">
+ <div class="sim"><span class="tag">SIMULATOR 11 • Prediction lab</span>
+  <p class="small">Slide x to read the line’s prediction. The shaded band is where we actually have data. Then add one unusual student and watch the line.</p>
+  <div class="ctl"><label for="x11"><strong>Hours studied x:</strong> <span id="xv11">5</span></label><input type="range" id="x11" min="0" max="14" step="0.5" value="5"></div>
+  <div class="ctl"><label><input type="checkbox" id="o11"> Add an unusual student: 9 hours, score 40</label></div>
+  <div class="chart" id="c11"></div>
+  <div class="stats" id="s11"></div>
+  <p class="small" id="m11" style="margin:.5em 0 0"></p></div>
+ <div class="g2 mt">
+  <div class="key"><p><strong>Lesson:</strong> one unusual point can tilt the whole line, and predictions far outside the data (like 14 hours) can be impossible, such as a score above 100.</p></div>
+  <div class="indo"><b class="lb">Singkatnya:</b> Prediksi di dalam rentang data = interpolasi (cukup aman). Di luar rentang = ekstrapolasi (berisiko). Satu pencilan dapat mengubah garis.</div>
+ </div>
+</section>
+
+<section class="slide" data-sec="scatter" data-k="SAT toolkit: scatterplots" data-t="Six moves for SAT scatterplot questions" data-f="Translate the picture into slope, intercept, residual, or model type.">
+ <div class="g3">
+  <div class="card top"><h3>1. Read the axes first</h3><p>Name x, name y, and check the units. Most wrong answers swap the two variables.</p></div>
+  <div class="card top"><h3>2. Slope from the line</h3><p>Pick two points <strong>on the line</strong> (not just dots). <span class="formula">m = (y₂ − y₁) ÷ (x₂ − x₁)</span></p></div>
+  <div class="card top"><h3>3. Interpret in context</h3><p><strong>Slope:</strong> predicted change in y for each 1-unit increase in x. <strong>Intercept:</strong> predicted y when x = 0.</p></div>
+  <div class="card top"><h3>4. Residual</h3><p><span class="formula">actual − predicted</span><br>Dot above the line → positive. Dot below the line → negative.</p></div>
+  <div class="card top"><h3>5. Choose the model</h3><p><strong>Linear:</strong> same <em>difference</em> each step. <strong>Exponential:</strong> same <em>ratio</em> each step. <strong>Quadratic:</strong> rises then falls (or the reverse).</p></div>
+  <div class="card top"><h3>6. Trust the prediction?</h3><p>Inside the data range: reasonable. Outside it: <strong>extrapolation</strong>, be careful. And association never proves cause.</p></div>
+ </div>
+ <div class="indo"><b class="lb">Singkatnya:</b> Baca sumbu → hitung kemiringan dari dua titik pada garis → tafsirkan dalam konteks → residu = aktual − prediksi → pilih model yang tepat.</div>
+</section>
+
+<section class="slide" data-sec="scatter" data-k="Worked SAT problems: scatterplots" data-t="Think it through before revealing the answer" data-f="Write down what you know, then choose a move.">
+ <div class="g3">
+  <div class="card" data-steps><span class="tag lt">Problem 1</span><h3>A line of best fit for a plant’s height y (cm) after x weeks is ŷ = 6 + 2.5x. At week 5 the plant measured 21 cm. What is the residual?</h3>
+   <div class="steplist"><div class="rv">Predicted: ŷ = 6 + 2.5(5) = <strong>18.5</strong></div><div class="rv">Residual = actual − predicted = 21 − 18.5</div><div class="rv"><span class="formula">+2.5 cm</span> (the plant is above the line)</div></div>
+   <div class="ctl"><button class="btn nx">Next step ▶</button><button class="btn alt rs">Reset</button></div></div>
+  <div class="card" data-steps><span class="tag lt">Problem 2</span><h3>Two points on a line of best fit are (2, 10) and (8, 34). What does the line predict for x = 10?</h3>
+   <div class="steplist"><div class="rv">Slope = (34 − 10) ÷ (8 − 2) = 24 ÷ 6 = <strong>4</strong></div><div class="rv">Intercept: 10 = 4(2) + b, so b = <strong>2</strong>. The line is ŷ = 4x + 2.</div><div class="rv">ŷ(10) = 4(10) + 2 = <span class="formula">42</span></div></div>
+   <div class="ctl"><button class="btn nx">Next step ▶</button><button class="btn alt rs">Reset</button></div></div>
+  <div class="card" data-steps><span class="tag lt">Problem 3</span><h3>For x = 1, 2, 3, 4 the values of y are 3, 6, 12, 24. Which model fits best: linear, quadratic, or exponential?</h3>
+   <div class="steplist"><div class="rv">Differences: 3, 6, 12. Not constant, so <strong>not linear</strong>.</div><div class="rv">Ratios: 6÷3 = 2, 12÷6 = 2, 24÷12 = 2. Constant!</div><div class="rv">Multiplying by the same factor each step → <span class="formula">exponential</span></div></div>
+   <div class="ctl"><button class="btn nx">Next step ▶</button><button class="btn alt rs">Reset</button></div></div>
+ </div>
+</section>
+
+<!-- ============ PRACTICE ============ -->
+<section class="slide divider" data-sec="practice" data-name="Practice">
+ <div class="part">Final part</div>
+ <h1>🏆 SAT toolkit & practice</h1>
+ <p>Now we put everything together: what happens when all values change, quick SAT tricks, worked problems, and a quiz.</p>
+ <div class="qs"><span>Transformations</span><span>5 SAT moves</span><span>Worked problems</span><span>Quiz</span></div>
+ <div class="deco">🏆</div><div class="bignum">6</div>
+</section>
+
+<section class="slide" data-sec="practice" data-k="Transformations • Simulator 8" data-t="What if the teacher changes everyone’s score?" data-f="Adding shifts the data; multiplying stretches it.">
+ <div class="g2 w64">
+  <div class="sim"><span class="tag">SIMULATOR 8 • Transform lab</span>
+   <p class="small" style="margin:0">Original: <strong>4, 6, 6, 7, 9, 10, 14</strong>. Each value becomes <strong>(value × multiply) + add</strong>.</p>
+   <div class="ctl"><label for="m6"><strong>Multiply by:</strong> <span id="mv6">1</span></label><input type="range" id="m6" min="-2" max="4" step="0.5" value="1"></div>
+   <div class="ctl"><label for="a6"><strong>Add:</strong> <span id="av6">0</span></label><input type="range" id="a6" min="-10" max="20" value="0"></div>
+   <div class="chart" id="c6"></div>
+   <div id="t6" class="mt"></div></div>
+  <div>
+   <div class="analogy"><p><strong>➕ Bonus points:</strong> the teacher gives everyone +5. The whole class moves up together, so the <strong>center goes up by 5</strong>, but the gaps between students stay the same → <strong>spread does not change</strong>.</p><p><strong>✖️ Doubling:</strong> scores × 2. Everything stretches, so center <em>and</em> spread double.</p></div>
+   <div class="key"><p><strong>Add c:</strong> mean, median, Q₁, Q₃ + c. Range, IQR, SD unchanged.<br><strong>Multiply by k:</strong> center × k, spread × |k|.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="slide" data-sec="practice" data-k="SAT toolkit" data-t="Five moves that solve most SAT data questions" data-f="Translate the words into a statistical idea first.">
+ <div class="g2">
+  <div class="card top"><h3>1. Total = mean × n</h3><p>Mean of 5 numbers is 12 → total is 60. Missing value? <strong>Total − the others.</strong></p></div>
+  <div class="card top"><h3>2. Adding a new value</h3><p>The mean moves <em>toward</em> the new value. If the new value equals the mean, the mean stays the same.</p></div>
+  <div class="card top"><h3>3. Compare SD without calculating</h3><p>The data set whose values sit <strong>farther from its mean</strong> has the larger SD.</p></div>
+  <div class="card top"><h3>4. Skew → mean vs median</h3><p>Tail right: mean &gt; median. Tail left: mean &lt; median.</p></div>
+ </div>
+ <div class="card mt"><h3>5. Who gets fooled by outliers?</h3>
+  <table><tr><th></th><th>Mean</th><th>Median</th><th>Mode</th><th>Range</th><th>IQR</th><th>SD</th></tr><tr><td><strong>Changes a lot?</strong></td><td>✅ Yes</td><td>❌ No</td><td>❌ No</td><td>✅ Yes</td><td>❌ No</td><td>✅ Yes</td></tr></table></div>
+</section>
+
+<section class="slide" data-sec="practice" data-k="Worked SAT problems" data-t="Think it through before revealing the answer" data-f="Write down what you know, then choose a move.">
+ <div class="g3">
+  <div class="card" data-steps><span class="tag lt">Problem 1</span><h3>The mean of 6 test scores is 80. A 7th score is added and the mean becomes 82. What is the 7th score?</h3>
+   <div class="steplist"><div class="rv">Old total = 6 × 80 = <strong>480</strong></div><div class="rv">New total = 7 × 82 = <strong>574</strong></div><div class="rv">7th score = 574 − 480 = <span class="formula">94</span></div></div>
+   <div class="ctl"><button class="btn nx">Next step ▶</button><button class="btn alt rs">Reset</button></div></div>
+  <div class="card" data-steps><span class="tag lt">Problem 2</span><h3>Data: 12, 15, 15, 18, 20, 22, 60. If 60 is removed, which changes more: the mean or the median?</h3>
+   <div class="steplist"><div class="rv">Before: mean = 162 ÷ 7 ≈ 23.1; median = 18</div><div class="rv">After: mean = 102 ÷ 6 = 17; median = (15 + 18) ÷ 2 = 16.5</div><div class="rv">Mean drops ≈ 6.1, median only 1.5 → <span class="formula">the mean</span></div></div>
+   <div class="ctl"><button class="btn nx">Next step ▶</button><button class="btn alt rs">Reset</button></div></div>
+  <div class="card" data-steps><span class="tag lt">Problem 3</span><h3>Class X: median 70, IQR 10. Class Y: median 70, IQR 25. Which statement must be true?</h3>
+   <div class="steplist"><div class="rv">Same median → typical scores are the same.</div><div class="rv">IQR = width of the middle 50%. 10 &lt; 25.</div><div class="rv"><strong>The middle half of class X is more consistent.</strong> (We cannot say anything certain about the means.)</div></div>
+   <div class="ctl"><button class="btn nx">Next step ▶</button><button class="btn alt rs">Reset</button></div></div>
+ </div>
+</section>
+
+<section class="slide" data-sec="practice" data-k="Practice" data-t="Quick quiz: test yourself" data-f="Read carefully, then choose.">
+ <div id="quiz"></div>
+</section>
+
+<section class="slide" data-sec="practice" data-k="Reflection and recap" data-t="Be a thoughtful reader of data" data-f="“Describe the data honestly. Interpret it wisely.”">
+ <div class="g4">
+  <div class="card top" data-sec="center"><h3>🎯 Center</h3><p>mean = fair share<br>median = middle<br>mode = most</p></div>
+  <div class="card top" data-sec="spread"><h3>📏 Spread</h3><p>range = max − min<br>IQR = middle 50%<br>MAD, SD = distance from mean</p></div>
+  <div class="card top" data-sec="shape"><h3>⛰️ Shape</h3><p>follow the tail<br>skew pulls the mean<br>1.5 × IQR for outliers</p></div>
+  <div class="card top" data-sec="display"><h3>📊 Displays</h3><p>dot plot, histogram,<br>box plot, table<br>check axes & bins</p></div>
+  <div class="card top" data-sec="scatter"><h3>📈 Scatterplots</h3><p>direction, strength, form<br>ŷ = a + bx<br>stay inside the data</p></div>
+ </div>
+ <div class="g2 mt">
+  <div class="card soft"><h3>Exit ticket (answer in your own words)</h3><ol><li>When is the median more useful than the mean? Give a real example.</li><li>What does a small IQR tell you about a class?</li><li>A histogram has a long tail to the left. Which is bigger: mean or median?</li><li>What should you check before trusting a graph?</li><li>A line of best fit is ŷ = 20 + 3x. What does the 3 mean in words you could say to a friend?</li><li>Why is it risky to predict far outside the range of the data?</li></ol></div>
+  <div><div class="key"><p><strong>Joyful:</strong> stay curious and experiment.</p></div><div class="key"><p><strong>Meaningful:</strong> connect data to real decisions.</p></div><div class="key"><p><strong>Mindful:</strong> let evidence guide conclusions.</p></div></div>
+ </div>
+</section>
+
+</main>
+<nav class="controls"><button id="prev" aria-label="Previous slide">←</button><button id="next">Next →</button><div class="progress"><span id="bar"></span></div><span id="counter">1 / 1</span><button id="full">⛶ Fullscreen</button></nav>
+</div>
+<script>
+const $=s=>document.querySelector(s),sum=a=>a.reduce((x,y)=>x+y,0),fx=x=>String(Math.round(x*100)/100);
+const med=a=>{const s=[...a].sort((x,y)=>x-y),n=s.length,m=n>>1;return n%2?s[m]:(s[m-1]+s[m])/2};
+function st(a){const s=[...a].sort((x,y)=>x-y),n=s.length,m=sum(s)/n,h=n>>1,f={};
+ const q1=med(s.slice(0,h)),q3=med(s.slice(n%2?h+1:h));s.forEach(v=>f[v]=(f[v]||0)+1);
+ const mx=Math.max(...Object.values(f)),md=Object.keys(f).filter(k=>f[k]==mx);
+ return{n,s,mean:m,med:med(s),q1,q3,iqr:q3-q1,min:s[0],max:s[n-1],range:s[n-1]-s[0],sd:Math.sqrt(sum(s.map(v=>(v-m)**2))/n),mad:sum(s.map(v=>Math.abs(v-m)))/n,mode:mx==1?'none':md.join(', ')}}
+const FONT='font-family="Plus Jakarta Sans,Inter,system-ui,sans-serif"';
+const T=(x,y,t,o='')=>`<text x="${x}" y="${y}" font-size="15" ${FONT} ${o}>${t}</text>`;
+const W=el=>el.clientWidth||600;
+const chips=o=>o.map(([k,v,r])=>`<b${r?' class="r"':''}>${k}${v===''?'':' = '+v}</b>`).join('');
+function axis(w,b,X,min,max,step){let o=`<line x1="${X(min)-8}" x2="${X(max)+8}" y1="${b}" y2="${b}" stroke="#9aabc3" stroke-width="2"/>`;
+ for(let v=min;v<=max+1e-9;v+=step)o+=`<line x1="${X(v)}" x2="${X(v)}" y1="${b}" y2="${b+6}" stroke="#9aabc3"/>`+T(X(v),b+24,v,'text-anchor="middle" fill="#56627c"');return o}
+function dots(d,X,b,r=11,col='#2563eb'){const c={};return d.map(v=>{c[v]=(c[v]||0)+1;return`<circle cx="${X(v)}" cy="${b-r-2-(c[v]-1)*(2*r+2)}" r="${r}" fill="${col}"/>`}).join('')}
+const vline=(x,y1,y2,c,dash)=>`<line x1="${x}" x2="${x}" y1="${y1}" y2="${y2}" stroke="${c}" stroke-width="3" ${dash?'stroke-dasharray="7 5"':''}/>`;
+const tick=(el,h,i)=>el.innerHTML=`<svg width="${W(el)}" height="${h}" viewBox="0 0 ${W(el)} ${h}">${i}</svg>`;
+function boxes(el,rows,min,max,step,pad=60){const w=W(el),rh=92,h=rows.length*rh+44,X=v=>pad+(v-min)/(max-min)*(w-pad-24);let o='';
+ rows.forEach((r,i)=>{const s=st(r.d),lo=s.q1-1.5*s.iqr,hi=s.q3+1.5*s.iqr,ins=s.s.filter(v=>v>=lo&&v<=hi),a=Math.min(...ins),z=Math.max(...ins),y=i*rh+40,c=r.c||'#2563eb';
+  o+=T(8,y+5,r.n,'font-weight="800" fill="#1b2236"')+`<line x1="${X(a)}" x2="${X(z)}" y1="${y}" y2="${y}" stroke="#52647d" stroke-width="2"/><line x1="${X(a)}" x2="${X(a)}" y1="${y-12}" y2="${y+12}" stroke="#52647d" stroke-width="2"/><line x1="${X(z)}" x2="${X(z)}" y1="${y-12}" y2="${y+12}" stroke="#52647d" stroke-width="2"/><rect x="${X(s.q1)}" y="${y-20}" width="${X(s.q3)-X(s.q1)}" height="40" fill="${c}" fill-opacity=".16" stroke="${c}" stroke-width="2" rx="5"/>`+vline(X(s.med),y-20,y+20,'#dc2626');
+  s.s.filter(v=>v<lo||v>hi).forEach(v=>o+=`<circle cx="${X(v)}" cy="${y}" r="7" fill="#dc2626"/>`)});
+ tick(el,h,o+axis(w,h-30,X,min,max,step))}
+const watch=(id,f)=>new ResizeObserver(()=>f()).observe($(id));
+
+// ---------- slide builder ----------
+const slides=[...document.querySelectorAll('.slide')];
+slides.forEach((s,i)=>{if(!s.dataset.t)return;s.insertAdjacentHTML('afterbegin',`<div class="hd"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="k">${s.dataset.k}</span></div><h2>${s.dataset.t}</h2>`);s.insertAdjacentHTML('beforeend',`<div class="footer"><span>🔑 ${s.dataset.f}</span><span>${i+1} / ${slides.length}</span></div>`)});
+const secNames={intro:'Intro',center:'🎯 Center',spread:'📏 Spread',shape:'⛰️ Shape',display:'📊 Displays',scatter:'📈 Scatterplots',practice:'🏆 Practice'};
+const firstOf={};slides.forEach((s,i)=>{if(!(s.dataset.sec in firstOf))firstOf[s.dataset.sec]=i});
+$('#secs').innerHTML=Object.keys(firstOf).map(k=>`<button data-s="${k}">${secNames[k]}</button>`).join('');
+$('#secs').onclick=e=>{const b=e.target.closest('button');if(b)show(firstOf[b.dataset.s])};
+let cur=0;const stops=[];
+function show(n){stops.forEach(f=>f());cur=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,i)=>s.classList.toggle('active',i===cur));slides[cur].scrollTop=0;
+ const sec=slides[cur].dataset.sec;$('#app').dataset.sec=sec;document.querySelectorAll('#secs button').forEach(b=>b.classList.toggle('on',b.dataset.s==sec));
+ $('#counter').textContent=`${cur+1} / ${slides.length}`;$('#bar').style.width=`${(cur+1)/slides.length*100}%`;$('#prev').disabled=cur==0;$('#next').disabled=cur==slides.length-1}
+$('#prev').onclick=()=>show(cur-1);$('#next').onclick=()=>show(cur+1);
+$('#full').onclick=async()=>{try{document.fullscreenElement?await document.exitFullscreen():await document.documentElement.requestFullscreen()}catch(e){}};
+document.addEventListener('keydown',e=>{if(e.target.tagName=='INPUT'&&e.key.startsWith('Arrow'))return;
+ if(['ArrowRight','PageDown'].includes(e.key)||(e.key==' '&&e.target.tagName!='BUTTON')){e.preventDefault();show(cur+1)}
+ if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(cur-1)}
+ if(e.key=='Home')show(0);if(e.key=='End')show(slides.length-1);if(e.key.toLowerCase()=='f'&&e.target.tagName!='INPUT')$('#full').click()});
+let tx=0;$('#stage').addEventListener('touchstart',e=>tx=e.changedTouches[0].screenX,{passive:true});
+$('#stage').addEventListener('touchend',e=>{if(e.target.closest('input,.chart,.lineup'))return;const d=e.changedTouches[0].screenX-tx;if(Math.abs(d)>70)show(cur+(d<0?1:-1))},{passive:true});
+
+// ---------- step reveal ----------
+function stepper(box,max,render=()=>{}){const nx=box.querySelector('.nx'),rs=box.querySelector('.rs'),lbl=nx.textContent,items=[...box.querySelectorAll('.rv')];let k=0;
+ const go=()=>{box.dataset.k=k;items.forEach((e,i)=>e.classList.toggle('on',i<k));render(k);nx.disabled=k>=max;nx.textContent=k>=max?'✓ Done':lbl};
+ nx.onclick=()=>{k=Math.min(max,k+1);go()};rs.onclick=()=>{k=0;go()};go()}
+document.querySelectorAll('[data-steps]').forEach(b=>stepper(b,b.querySelectorAll('.rv').length));
+const P=24;
+
+// ---------- Sim 1: dot plot ----------
+let d1=[8,10,10,12,13];
+function u1(){const el=$('#c1'),w=W(el),h=300,b=h-64,X=v=>P+v/20*(w-2*P);let o=axis(w,b,X,0,20,2).replace(/y="(\d+)"/g,(m,y)=>`y="${+y+18}"`)+dots(d1,X,b);
+ if(d1.length){const s=st(d1),x=X(s.mean);o+=vline(X(s.med),8,b,'#dc2626',1)+`<polygon points="${x},${b+3} ${x-13},${b+27} ${x+13},${b+27}" fill="#f59e0b" stroke="#b7791f" stroke-width="2"/>`;
+  $('#s1').innerHTML=chips([['n',s.n],['Mean',fx(s.mean)],['Median',fx(s.med)],['Mode',s.mode],['Range',s.range]])}else $('#s1').innerHTML='<b>Click the number line to add data.</b>';
+ tick(el,h,o)}
+$('#c1').onclick=e=>{const w=W($('#c1')),r=$('#c1').getBoundingClientRect(),v=Math.round((e.clientX-r.left-P)/(w-2*P)*20);if(d1.length<40)d1.push(Math.max(0,Math.min(20,v)));u1()};
+$('#b1u').onclick=()=>{d1.pop();u1()};$('#b1c').onclick=()=>{d1=[];u1()};$('#b1e').onclick=()=>{d1=[6,7,7,8,8,9,9,10,20];u1()};watch('#c1',u1);
+
+// ---------- Fair share ----------
+const fsN=['Aisyah','Budi','Citra','Dimas','Eka'],fsC=['#f472b6','#60a5fa','#34d399','#fbbf24','#a78bfa'];let fsv=[2,7,3,8,5],fsS=false;
+$('#fsctl').innerHTML=fsN.map((n,i)=>`<div><button data-i="${i}" data-d="-1">−</button><button data-i="${i}" data-d="1">+</button></div>`).join('');
+$('#fsctl').onclick=e=>{const b=e.target.closest('button');if(!b)return;const i=+b.dataset.i;fsv[i]=Math.max(0,Math.min(10,fsv[i]+ +b.dataset.d));fsS=false;ufs()};
+$('#fsb').onclick=()=>{fsS=!fsS;ufs()};
+function ufs(){const el=$('#cfs'),w=W(el),h=300,b=h-36,n=5,cw=(w-20)/n,sz=Math.min(30,cw*.5,(b-20)/10.8),gap=2,m=sum(fsv)/n;let o='';
+ fsv.forEach((v,i)=>{const cx=10+cw*i+cw/2;
+  if(!fsS){for(let j=0;j<v;j++)o+=`<rect x="${cx-sz/2}" y="${b-(j+1)*(sz+gap)}" width="${sz}" height="${sz}" rx="6" fill="${fsC[i]}"/>`}
+  else{const full=Math.floor(m+1e-9),fr=m-full;for(let j=0;j<full;j++)o+=`<rect x="${cx-sz/2}" y="${b-(j+1)*(sz+gap)}" width="${sz}" height="${sz}" rx="6" fill="#f59e0b"/>`;
+   if(fr>1e-6)o+=`<rect x="${cx-sz/2}" y="${b-full*(sz+gap)-fr*sz-gap}" width="${sz}" height="${fr*sz}" rx="4" fill="#f59e0b" opacity=".55"/>`}
+  o+=T(cx,b+24,fsN[i],'text-anchor="middle" font-weight="700" fill="#56627c"')});
+ o+=`<line x1="10" x2="${w-10}" y1="${b}" y2="${b}" stroke="#9aabc3" stroke-width="2"/>`;
+ if(fsS){const y=b-m*(sz+gap);o+=`<line x1="10" x2="${w-10}" y1="${y}" y2="${y}" stroke="#1d4ed8" stroke-width="3" stroke-dasharray="8 5"/>`+T(14,y-8,'mean = '+fx(m),'font-weight="800" fill="#1d4ed8"')}
+ tick(el,h,o);$('#fsb').textContent=fsS?'↩ Give them back':'🍬 Share equally';
+ $('#sfs').innerHTML=chips([['Total',sum(fsv)],['n',5],['Mean = '+sum(fsv)+' ÷ 5',fx(m)]])}
+watch('#cfs',ufs);
+
+// ---------- Seesaw ----------
+watch('#csaw',()=>{const el=$('#csaw'),w=W(el),h=190,b=110,X=v=>30+v/10*(w-60);let o=`<rect x="${X(0)-6}" y="${b-6}" width="${X(10)-X(0)+12}" height="12" rx="6" fill="#c7d2e6"/>`;
+ [2,4,9].forEach(v=>o+=`<circle cx="${X(v)}" cy="${b-26}" r="18" fill="#2563eb"/>`+T(X(v),b-21,v,'text-anchor="middle" fill="#fff" font-weight="800"'));
+ o+=`<polygon points="${X(5)},${b+6} ${X(5)-22},${b+48} ${X(5)+22},${b+48}" fill="#f59e0b" stroke="#b7791f" stroke-width="2"/>`+T(X(5),b+70,'mean = 5','text-anchor="middle" font-weight="800" fill="#b7791f"');
+ const arr=(a,c,y,col)=>`<line x1="${X(a)}" x2="${X(c)}" y1="${y}" y2="${y}" stroke="${col}" stroke-width="3"/>`+T((X(a)+X(c))/2,y-6,Math.abs(a-c),'text-anchor="middle" font-weight="800" fill="'+col+'"');
+ o+=arr(2,5,30,'#0d9488')+arr(4,5,58,'#0d9488')+arr(5,9,30,'#c0367a');
+ for(let v=0;v<=10;v++)o+=T(X(v),b+22,v,'text-anchor="middle" fill="#9aabc3" font-size="12"');tick(el,h,o)});
+
+// ---------- Line-up (median) ----------
+const luBase=[158,171,149,165,180,153,162];let luD=[...luBase],luS=false;
+function ulu(){const box=$('#lu');box.querySelectorAll('.stu').forEach((e,i)=>{if(i>=luD.length)e.remove()});
+ while(box.querySelectorAll('.stu').length<luD.length){const i=box.querySelectorAll('.stu').length,e=document.createElement('div');e.className='stu'+(i>=7?' new':'');e.innerHTML=`<span>${luD[i]}</span>`;e.style.height=(34+(luD[i]-140)*3.4)+'px';e.style.left=(i+.5)/luD.length*100+'%';box.append(e)}
+ const n=luD.length,ord=luD.map((v,i)=>i);if(luS)ord.sort((a,b)=>luD[a]-luD[b]);
+ const els=[...box.querySelectorAll('.stu')],sorted=[...luD].sort((a,b)=>a-b),mids=n%2?[(n-1)/2]:[n/2-1,n/2];
+ ord.forEach((idx,pos)=>{els[idx].style.left=(pos+.5)/n*100+'%';els[idx].classList.toggle('mid',luS&&mids.includes(pos))});
+ $('#lus').textContent=luS?'↺ Mix them up':'↔ Line them up by height';$('#lua').textContent=n==8?'➖ Remove 8th student':'➕ Add an 8th student';
+ $('#lut').innerHTML=!luS?`Heights in cm (n = ${n}). They are standing in random order, so we <strong>can’t</strong> see the middle yet. Line them up!`:
+  n%2?`Sorted: ${sorted.join(', ')}. n = 7 is odd → position (7+1) ÷ 2 = 4th → <strong style="color:var(--red)">median = ${sorted[3]} cm</strong>.`:
+  `Sorted: ${sorted.join(', ')}. n = 8 is even → two people in the middle (4th and 5th) → (${sorted[3]} + ${sorted[4]}) ÷ 2 = <strong style="color:var(--red)">median = ${(sorted[3]+sorted[4])/2} cm</strong>.`}
+$('#lus').onclick=()=>{luS=!luS;ulu()};$('#lua').onclick=()=>{luD=luD.length==8?[...luBase]:[...luBase,175];ulu()};$('#lur').onclick=()=>{luD=[...luBase];luS=false;ulu()};ulu();
+
+// ---------- Mode-mean-median bars ----------
+watch('#c7',()=>{const el=$('#c7'),w=W(el),h=220,b=h-36,bars=[['Mode',6,'#93c5fd'],['Median',7,'#fca5a5'],['Mean',8,'#fcd34d']],bw=(w-60)/3-20;let o=`<line x1="10" x2="${w-10}" y1="${b}" y2="${b}" stroke="#9aabc3" stroke-width="2"/>`;
+ bars.forEach((r,i)=>{const x=30+i*(bw+20),bh=r[1]/9*(b-36);o+=`<rect x="${x}" y="${b-bh}" width="${bw}" height="${bh}" fill="${r[2]}" rx="8"/>`+T(x+bw/2,b-bh-8,r[1],'text-anchor="middle" font-weight="800"')+T(x+bw/2,b+22,r[0],'text-anchor="middle" fill="#56627c" font-weight="700"')});tick(el,h,o)});
+
+// ---------- Sim 4: outliers ----------
+let t2=null;function u2(){const x=+$('#r2').value,d=[10,11,12,13,x],s=st(d),el=$('#c2'),w=W(el),h=190,b=h-70,X=v=>P+v/100*(w-2*P);
+ $('#v2').textContent=x;let o=axis(w,b,X,0,100,10)+`<rect x="${X(s.min)}" y="${b+34}" width="${X(s.max)-X(s.min)}" height="8" fill="#f59e0b" rx="4"/>`+dots(d,X,b,10)+vline(X(s.med),10,b,'#dc2626',1)+vline(X(s.mean),10,b,'#1d4ed8');
+ tick(el,h,o);$('#s2').innerHTML=chips([['Mean',fx(s.mean)],['Median',fx(s.med)],['Range',s.range,1],['IQR',fx(s.iqr)]])}
+$('#r2').oninput=u2;let dir2=1;
+$('#p2').onclick=()=>{if(t2){stop2();return}$('#p2').textContent='⏸ Pause';t2=setInterval(()=>{let v=+$('#r2').value+dir2*2;if(v>=100||v<=14)dir2*=-1;$('#r2').value=v;u2()},60)};
+function stop2(){clearInterval(t2);t2=null;$('#p2').textContent='▶ Play'}stops.push(stop2);watch('#c2',u2);
+
+// ---------- Spread routes ----------
+watch('#csp',()=>{const el=$('#csp'),w=W(el),h=210,X=v=>110+(v-10)/35*(w-140);let o='';
+ [['🚌 Route A',[28,29,30,30,31,32],70,'#0d9488'],['🚗 Route B',[15,20,30,35,40,40],150,'#c0367a']].forEach(([n,d,b,c])=>{const s=st(d);
+  o+=`<line x1="${X(10)}" x2="${X(45)}" y1="${b}" y2="${b}" stroke="#dbe2ec" stroke-width="2"/>`+T(6,b-8,n,'font-weight="800" fill="#1b2236"')+`<rect x="${X(s.min)}" y="${b+6}" width="${X(s.max)-X(s.min)}" height="6" rx="3" fill="${c}" opacity=".35"/>`+dots(d,X,b,9,c)});
+ o+=vline(X(30),20,170,'#1d4ed8',1)+T(X(30)+6,24,'both means = 30','font-weight="800" fill="#1d4ed8"');
+ for(let v=10;v<=45;v+=5)o+=T(X(v),h-10,v,'text-anchor="middle" fill="#56627c" font-size="13"');tick(el,h,o)});
+
+// ---------- Quartile chips ----------
+const qd=[2,4,5,7,8,9,12,14,16];
+stepper($('#qbox'),4,k=>{let o='';qd.forEach((v,i)=>{if(i==2)o+=`<span class="m ${k>=2?'':'hide'}"><i></i>Q₁ 4.5</span>`;if(i==7)o+=`<span class="m ${k>=3?'':'hide'}"><i></i>Q₃ 13</span>`;
+ const cls=i==4&&k>=1?'md':i<4&&k>=2?'lo':i>4&&k>=3?'hi':'';o+=`<span class="c ${cls}">${v}</span>`});
+ $('#qchips').innerHTML=o+(k>=4?`<div style="flex-basis:100%;text-align:center;font-weight:800;color:var(--deep);animation:pop .4s">IQR = 13 − 4.5 = 8.5 ✓</div>`:'')});
+
+// ---------- Box plot builder ----------
+const bbMsg=[['Step 0: the data as dots','Here are our 9 values on a number line. Press the button to build the box plot.'],
+['Step 1: mark the median','The middle value, 8, splits the data in half. Draw a red line there.'],
+['Step 2: mark Q₁ and Q₃','Q₁ = 4.5 (middle of the lower half) and Q₃ = 13 (middle of the upper half).'],
+['Step 3: draw the box','The box goes from Q₁ to Q₃. Its length is the IQR = 8.5. It holds the middle 50% of the data.'],
+['Step 4: add the whiskers','Lines from the box out to the minimum (2) and maximum (16).'],
+['Step 5: 25% in each part','Each of the 4 parts holds about 25% of the data, even though their lengths are different. Short part = values packed tightly.']];
+function ubb(){const k=+($('#bbox').dataset.k||0),el=$('#cbb'),w=W(el),h=250,X=v=>30+v/18*(w-60),s=st(qd),y=150;let o='';
+ o+=dots(qd,X,70,10,'#94a3b8');
+ if(k>=1)o+=vline(X(8),20,y+24,'#dc2626')+T(X(8),16,'median 8','text-anchor="middle" font-weight="800" fill="#dc2626"');
+ if(k>=2)o+=vline(X(4.5),40,y+24,'#0d9488',1)+vline(X(13),40,y+24,'#0d9488',1)+T(X(4.5),36,'Q₁ 4.5','text-anchor="middle" font-weight="800" fill="#0d9488"')+T(X(13),36,'Q₃ 13','text-anchor="middle" font-weight="800" fill="#0d9488"');
+ if(k>=3)o+=`<rect x="${X(4.5)}" y="${y-22}" width="${X(13)-X(4.5)}" height="44" rx="6" fill="#0d9488" fill-opacity=".18" stroke="#0d9488" stroke-width="3"/>`+vline(X(8),y-22,y+22,'#dc2626');
+ if(k>=4)o+=`<line x1="${X(2)}" x2="${X(4.5)}" y1="${y}" y2="${y}" stroke="#334155" stroke-width="3"/><line x1="${X(13)}" x2="${X(16)}" y1="${y}" y2="${y}" stroke="#334155" stroke-width="3"/><line x1="${X(2)}" x2="${X(2)}" y1="${y-12}" y2="${y+12}" stroke="#334155" stroke-width="3"/><line x1="${X(16)}" x2="${X(16)}" y1="${y-12}" y2="${y+12}" stroke="#334155" stroke-width="3"/>`;
+ if(k>=5)[[2,4.5],[4.5,8],[8,13],[13,16]].forEach(([a,b])=>o+=T((X(a)+X(b))/2,y+44,'25%','text-anchor="middle" font-weight="800" fill="#c0367a"'));
+ o+=axis(w,h-30,X,0,18,2);tick(el,h,o);$('#bbt').textContent=bbMsg[k][0];$('#bbp').textContent=bbMsg[k][1]}
+stepper($('#bbox'),5,ubb);watch('#cbb',ubb);
+
+// ---------- Distance arrows ----------
+watch('#cdist',()=>{const d=[2,4,4,4,5,5,7,9],el=$('#cdist'),w=W(el),h=300,X=v=>30+v/10*(w-60),row=28;let o='';
+ o+=vline(X(5),10,h-40,'#1d4ed8')+T(X(5)+6,22,'mean = 5','font-weight="800" fill="#1d4ed8"');
+ d.forEach((v,i)=>{const y=40+i*row,dv=v-5,c=dv>0?'#0d9488':dv<0?'#c0367a':'#94a3b8';
+  if(dv)o+=`<line x1="${X(v)}" x2="${X(5)}" y1="${y}" y2="${y}" stroke="${c}" stroke-width="3"/>`;
+  o+=`<circle cx="${X(v)}" cy="${y}" r="9" fill="${c}"/>`+T(dv>0?X(v)+14:X(v)-14,y+5,(dv>0?'+':'')+dv,`text-anchor="${dv>0?'start':'end'}" font-weight="800" fill="${c}"`)});
+ o+=axis(w,h-36,X,0,10,1);tick(el,h,o)});
+
+// ---------- SD table ----------
+const sdd=[2,4,4,4,5,5,7,9];
+const sdmsg=['<h3>Step 0: the data</h3><p>List each value. The mean is 5.</p>','<h3>Step 1: deviation (x − 5)</h3><p>Subtract the mean from each value. Below the mean → negative, above → positive.</p><p>They add up to <strong>0</strong>: the + and − cancel. (Remember the walking analogy!)</p>','<h3>Step 2: remove the sign |x − 5|</h3><p>Now every distance is positive. Total = 12.</p><p>Average distance: 12 ÷ 8 = <span class="formula">MAD = 1.5</span></p>','<h3>Step 3: square instead (x − 5)²</h3><p>Squares: total = 32. Average: 32 ÷ 8 = 4 (this is called the <em>variance</em>).</p><p>Undo the squaring with a square root: <span class="formula">SD = √4 = 2</span></p><p class="small">Notice 9 contributed 16 of the 32: far values count extra in SD.</p>'];
+stepper($('#sdbox'),3,k=>{const hd=i=>k<i?'hid':'';const c=i=>k<i?'style="visibility:hidden"':'';
+ $('#sdt').innerHTML='<tr><th>x</th><th '+c(1)+'>x − 5</th><th '+c(2)+'>|x − 5|</th><th '+c(3)+'>(x − 5)²</th></tr>'+sdd.map(x=>`<tr><td>${x}</td><td ${c(1)}>${x-5}</td><td ${c(2)}>${Math.abs(x-5)}</td><td ${c(3)}>${(x-5)**2}</td></tr>`).join('')+`<tr><th>Sum</th><th ${c(1)}>0</th><th ${c(2)}>12</th><th ${c(3)}>32</th></tr>`;$('#sdn').innerHTML=sdmsg[k]});
+
+// ---------- Sim 5: spread lab ----------
+function u3(){const k=+$('#r3').value,o3=$('#o3').checked,d=[-3,-2,-1,-1,0,0,0,1,1,2,3].map(v=>50+v*k);if(o3)d.push(98);
+ const s=st(d),el=$('#c3'),w=W(el),h=230,b=h-64,X=v=>P+v/100*(w-2*P);$('#v3').textContent=k;
+ const mn=Math.max(0,s.mean-s.sd),mx=Math.min(100,s.mean+s.sd);
+ tick(el,h,`<rect x="${X(mn)}" y="10" width="${X(mx)-X(mn)}" height="${b-10}" fill="#99e0d6" opacity=".55"/>`+axis(w,b,X,0,100,10)+dots(d,X,b,8,'#0d9488')+vline(X(s.mean),10,b,'#1d4ed8')+T(Math.min(X(mx)+6,w-150),26,'mean ± 1 SD','fill="#0b5d56" font-weight="800"'));
+ $('#s3').innerHTML=chips([['Mean',fx(s.mean)],['Range',s.range,o3],['IQR',fx(s.iqr)],['SD',fx(s.sd),o3],['MAD',fx(s.mad)]])}
+$('#r3').oninput=u3;$('#o3').onchange=u3;watch('#c3',u3);
+
+// ---------- Mini histograms ----------
+function mini(el,c,col,h=150,mm=true){const w=W(el),p=12,bw=(w-2*p)/c.length,mx=Math.max(...c),b=h-14;let o='';
+ c.forEach((n,i)=>{const bh=n/mx*(b-16);o+=`<rect x="${p+i*bw+1}" y="${b-bh}" width="${bw-2}" height="${bh}" rx="3" fill="${col}"/>`});
+ o+=`<line x1="${p}" x2="${w-p}" y1="${b}" y2="${b}" stroke="#9aabc3" stroke-width="2"/>`;
+ if(mm){const d=[];c.forEach((n,i)=>{for(let j=0;j<n;j++)d.push(i)});const s=st(d),Xi=v=>p+(v+.5)*bw,ad=Math.abs(s.mean-s.med)<.3?4:0;o+=vline(Xi(s.mean)+ad,4,b,'#1d4ed8')+vline(Xi(s.med)-ad,4,b,'#dc2626',1)}
+ tick(el,h,o)}
+watch('#csh1',()=>mini($('#csh1'),[1,3,6,9,10,9,6,3,1],'#fdba74'));
+watch('#csh2',()=>mini($('#csh2'),[6,10,8,5,3,2,1,1,1],'#fdba74'));
+watch('#csh3',()=>mini($('#csh3'),[1,1,1,2,3,5,8,10,6],'#fdba74'));
+
+// ---------- Sim 6: shapes ----------
+const shapes={'Symmetric':[1,3,6,9,10,9,6,3,1],'Skewed right':[10,9,7,5,3,2,1,1,1],'Skewed left':[1,1,1,2,3,5,7,9,10],'Bimodal':[2,6,9,6,2,6,9,6,2],'Uniform':[5,5,5,5,5,5,5,5,5]};let sh='Symmetric';
+$('#bt4').innerHTML=Object.keys(shapes).map(k=>`<button class="btn alt" data-k="${k}">${k}</button>`).join('');
+$('#bt4').onclick=e=>{if(e.target.dataset.k){sh=e.target.dataset.k;u4()}};
+function u4(){const c=shapes[sh],d=[];c.forEach((n,i)=>{for(let j=0;j<n;j++)d.push(i*10+5)});const s=st(d),el=$('#c4'),w=W(el),h=270,b=h-50,p=30,X=v=>p+v/90*(w-2*p),bw=(X(10)-X(0))-4,mx=Math.max(...c);
+ let o=`<line x1="${p}" x2="${w-p}" y1="${b}" y2="${b}" stroke="#9aabc3" stroke-width="2"/>`;
+ c.forEach((n,i)=>{const bh=n/mx*(b-30);o+=`<rect x="${X(i*10)+2}" y="${b-bh}" width="${bw}" height="${bh}" fill="#fdba74" stroke="#e8710f" rx="4"/>`});
+ const near=Math.abs(s.mean-s.med)<.6;o+=vline(X(s.mean)+(near?-3:0),6,b,'#1d4ed8')+vline(X(s.med)+(near?3:0),6,b,'#dc2626',1)+T(p,b+24,'← low values','fill="#56627c"')+T(w-p,b+24,'high values →','fill="#56627c" text-anchor="end"');
+ document.querySelectorAll('#bt4 .btn').forEach(x=>x.classList.toggle('on',x.dataset.k==sh));tick(el,h,o);
+ const df=s.mean-s.med;$('#s4').innerHTML=chips([['Mean',fx(s.mean)],['Median',fx(s.med)],[Math.abs(df)<1?'mean ≈ median':df>0?'mean > median (pulled right)':'mean < median (pulled left)','']])}
+watch('#c4',u4);
+
+// ---------- Outlier example & displays ----------
+const bx=(id,r,a,b,c,p)=>watch(id,()=>boxes($(id),r,a,b,c,p));
+bx('#c14',[{n:'',d:[3,4,5,5,6,6,7,8,30],c:'#e8710f'}],0,32,4,20);
+watch('#dv1',()=>{const el=$('#dv1'),w=W(el),h=150,b=h-30,X=v=>14+v/10*(w-28);tick(el,h,dots([2,3,3,4,4,4,5,5,6,8],X,b,7,'#c0367a')+axis(w,b,X,0,10,2))});
+watch('#dv2',()=>mini($('#dv2'),[2,5,9,7,4,2],'#f0a6c8',150,false));
+bx('#dv3',[{n:'',d:[2,3,3,4,4,4,5,5,6,8],c:'#c0367a'}],0,10,2,12);
+watch('#cft',()=>{const el=$('#cft'),w=W(el),h=240,b=h-40,X=v=>50+v/30*(w-80),c=[3,7,5];let o='';
+ c.forEach((n,i)=>{const bh=n/8*(b-20);o+=`<rect x="${X(i*10)}" y="${b-bh}" width="${X(10)-X(0)}" height="${bh}" fill="#f0a6c8" stroke="#c0367a" stroke-width="2"/>`+T(X(i*10+5),b-bh-8,n,'text-anchor="middle" font-weight="800"')});
+ for(let v=0;v<=8;v+=2)o+=T(40,b-v/8*(b-20)+5,v,'text-anchor="end" fill="#56627c" font-size="13"');
+ o+=T(10,16,'Frequency','fill="#56627c" font-weight="700" font-size="13"')+axis(w,b,X,0,30,10)+T(X(15),h-2,'Minutes','text-anchor="middle" fill="#56627c" font-weight="700" font-size="13"');tick(el,h,o)});
+watch('#cba',()=>{const el=$('#cba'),w=W(el),h=200,y=100,X=v=>40+(v-10)/80*(w-80),f=[20,35,45,60,85],c='#c0367a';let o='';
+ o+=`<line x1="${X(20)}" x2="${X(35)}" y1="${y}" y2="${y}" stroke="#334155" stroke-width="3"/><line x1="${X(60)}" x2="${X(85)}" y1="${y}" y2="${y}" stroke="#334155" stroke-width="3"/>`+[20,85].map(v=>`<line x1="${X(v)}" x2="${X(v)}" y1="${y-14}" y2="${y+14}" stroke="#334155" stroke-width="3"/>`).join('');
+ o+=`<rect x="${X(35)}" y="${y-26}" width="${X(60)-X(35)}" height="52" rx="6" fill="${c}" fill-opacity=".15" stroke="${c}" stroke-width="3"/>`+vline(X(45),y-26,y+26,'#dc2626');
+ [['Min 20',20],['Q₁ 35',35],['Median 45',45],['Q₃ 60',60],['Max 85',85]].forEach(([t,v],i)=>o+=T(X(v),i%2?y-36:y-50,t,'text-anchor="middle" font-weight="800" fill="'+(v==45?'#dc2626':'#1b2236')+'"'));
+ o+=`<path d="M${X(35)} ${y+36} v8 h${X(60)-X(35)} v-8" fill="none" stroke="${c}" stroke-width="2"/>`+T((X(35)+X(60))/2,y+62,'box = IQR = 25 (middle 50%)','text-anchor="middle" font-weight="800" fill="'+c+'"');
+ o+=T((X(20)+X(35))/2,y+30,'whisker','text-anchor="middle" fill="#56627c" font-size="13"')+T((X(60)+X(85))/2,y+30,'whisker (longer, still 25%)','text-anchor="middle" fill="#56627c" font-size="13"');
+ tick(el,h,o)});
+const A=[52,58,62,65,68,70,72,75,78,82,88],B=[40,48,55,60,68,76,80,84,90,94,98];
+bx('#c18',[{n:'Class A',d:A,c:'#2563eb'},{n:'Class B',d:B,c:'#c0367a'}],30,100,10,80);
+(()=>{const a=st(A),b=st(B);$('#t18').innerHTML=`<h3>The numbers</h3><table><tr><th></th><th>Median</th><th>IQR</th><th>Range</th></tr><tr><td><strong>Class A</strong></td><td>${a.med}</td><td>${a.iqr}</td><td>${a.range}</td></tr><tr><td><strong>Class B</strong></td><td>${b.med}</td><td>${b.iqr}</td><td>${b.range}</td></tr></table><p class="small mt">Class B has the higher median (76 vs 70) but a much bigger IQR (29 vs 13): higher, but less consistent.</p>`})();
+
+// ---------- Sim 7: bins ----------
+const d5=[3,5,7,8,9,11,12,12,13,14,15,15,16,17,18,19,21,22,24,25,27,31,33,38,41,44,47,52,55,58],bws=[2,5,10,15,20,30,60];
+function u5(){const bw=bws[+$('#r5').value],nb=Math.ceil(60/bw),c=Array(nb).fill(0);d5.forEach(v=>c[Math.min(nb-1,Math.floor(v/bw))]++);$('#v5').textContent=bw;
+ const el=$('#c5'),w=W(el),h=270,b=h-50,p=28,X=v=>p+v/60*(w-2*p),mx=Math.max(...c);let o=axis(w,b,X,0,60,10);
+ c.forEach((n,i)=>{const bh=n/mx*(b-40);o+=`<rect x="${X(i*bw)+1}" y="${b-bh}" width="${X(bw)-X(0)-2}" height="${bh}" fill="#f0a6c8" stroke="#c0367a"/>`+(n?T(X(i*bw+bw/2),b-bh-6,n,'text-anchor="middle" font-weight="700" fill="#1b2236"'):'')});
+ tick(el,h,o);$('#s5').innerHTML=`<strong>${nb} bins.</strong> `+(bw<=5?'Very narrow bins look bumpy and noisy.':bw>=30?'Very wide bins hide the shape completely.':'Moderate bins show a right-skewed shape: most students read 10–25 min, a few read much longer.')}
+$('#r5').oninput=u5;watch('#c5',u5);
+
+// ---------- Sim 8: transforms ----------
+const b6=[4,6,6,7,9,10,14];
+function u6(){const m=+$('#m6').value,a=+$('#a6').value,n=b6.map(v=>v*m+a),s0=st(b6),s1=st(n);$('#mv6').textContent=m;$('#av6').textContent=a;
+ const el=$('#c6'),w=W(el),h=190,X=v=>80+(v+40)/120*(w-100);let o=`<line x1="${X(-40)}" x2="${X(80)}" y1="60" y2="60" stroke="#dbe2ec" stroke-width="2"/>`+T(8,52,'Before','font-weight="800" fill="#56627c"')+T(8,136,'After','font-weight="800" fill="#15964a"');
+ o+=dots(b6,X,60,7,'#94a3b8')+dots(n,X,140,7,'#15964a')+vline(X(s0.mean),12,60,'#1d4ed8')+vline(X(s1.mean),92,140,'#1d4ed8')+axis(w,140,X,-40,80,20);tick(el,h,o);
+ const r=(k,f)=>`<tr><td>${k}</td><td>${fx(s0[f])}</td><td><strong>${fx(s1[f])}</strong></td></tr>`;
+ $('#t6').innerHTML='<table><tr><th></th><th>Before</th><th>After</th></tr>'+r('Mean','mean')+r('Median','med')+r('IQR','iqr')+r('SD','sd')+'</table>'}
+$('#m6').oninput=u6;$('#a6').oninput=u6;watch('#c6',u6);
+
+
+// ---------- Scatterplots ----------
+const mean=a=>sum(a)/a.length;
+function lsq(p){const xm=mean(p.map(q=>q[0])),ym=mean(p.map(q=>q[1]));let sxy=0,sxx=0,syy=0;p.forEach(([x,y])=>{sxy+=(x-xm)*(y-ym);sxx+=(x-xm)**2;syy+=(y-ym)**2});const b=sxy/sxx;return{b,a:ym-b*xm,r:sxy/Math.sqrt(sxx*syy),xm,ym}}
+const SD=[[1,55],[2,56],[2,62],[3,60],[4,71],[5,70],[5,77],[6,75],[7,86],[8,87]],SL=lsq(SD);
+let seed=7;const rnd=()=>(seed=seed*16807%2147483647)/2147483647;
+const nzA=Array.from({length:30},()=>rnd()+rnd()-1),nzB=Array.from({length:30},()=>rnd()*2-1);
+function gen(t,k,n=30){return Array.from({length:n},(_,i)=>{const x=.3+i*9.4/(n-1),z=nzA[i%30]*k*.6,u=nzB[(i*7)%30];let y;
+ if(t=='Positive')y=.8+.9*x+z;else if(t=='Negative')y=9.2-.9*x+z;else if(t=='None')y=5+u*4.2;else y=9-.36*(x-5)**2+z;
+ return[x,Math.max(0,Math.min(10,y))]})}
+const TX=(x,y,t,o='')=>`<text x="${x}" y="${y}" ${FONT} ${o}>${t}</text>`;
+function sc(el,o){const w=W(el),h=o.h||300,mini=o.mini,L=mini?12:56,R=14,Tp=12,B=mini?12:48,[x0,x1,xs]=o.x,[y0,y1,ys]=o.y,
+ X=v=>L+(v-x0)/(x1-x0)*(w-L-R),Y=v=>h-B-(v-y0)/(y1-y0)*(h-B-Tp),id='cp'+(el.id||'x'),pw=w-L-R,ph=h-B-Tp;
+ let s=`<defs><clipPath id="${id}"><rect x="${L}" y="${Tp}" width="${pw}" height="${ph}"/></clipPath></defs><rect x="${L}" y="${Tp}" width="${pw}" height="${ph}" fill="#fafbff" stroke="#e5e9f2"/>`;
+ if(o.shade)s+=`<rect x="${X(o.shade[0])}" y="${Tp}" width="${X(o.shade[1])-X(o.shade[0])}" height="${ph}" fill="#0891b2" opacity=".1"/>`;
+ if(!mini){for(let v=x0;v<=x1+1e-9;v+=xs)s+=`<line x1="${X(v)}" x2="${X(v)}" y1="${Tp}" y2="${h-B}" stroke="#eef1f7"/>`+TX(X(v),h-B+20,fx(v),'text-anchor="middle" fill="#56627c" font-size="13"');
+  for(let v=y0;v<=y1+1e-9;v+=ys)s+=`<line x1="${L}" x2="${w-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="#eef1f7"/>`+TX(L-8,Y(v)+5,fx(v),'text-anchor="end" fill="#56627c" font-size="13"');
+  s+=TX(L+pw/2,h-6,o.xl||'','text-anchor="middle" font-weight="800" fill="#1b2236" font-size="14"')+`<text transform="rotate(-90)" x="${-(Tp+ph/2)}" y="15" text-anchor="middle" font-size="14" font-weight="800" fill="#1b2236" ${FONT}>${o.yl||''}</text>`}
+ s+=`<line x1="${L}" x2="${w-R}" y1="${h-B}" y2="${h-B}" stroke="#9aabc3" stroke-width="2"/><line x1="${L}" x2="${L}" y1="${Tp}" y2="${h-B}" stroke="#9aabc3" stroke-width="2"/><g clip-path="url(#${id})">`;
+ if(o.hline!=null)s+=`<line x1="${L}" x2="${w-R}" y1="${Y(o.hline)}" y2="${Y(o.hline)}" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 5"/>`;
+ if(o.res&&o.line)o.pts.forEach(([x,y])=>s+=`<line x1="${X(x)}" x2="${X(x)}" y1="${Y(y)}" y2="${Y(o.line[0]+o.line[1]*x)}" stroke="#dc2626" stroke-width="2.5" opacity=".75"/>`);
+ const ln=(l,c,d)=>`<line x1="${X(x0)}" y1="${Y(l[0]+l[1]*x0)}" x2="${X(x1)}" y2="${Y(l[0]+l[1]*x1)}" stroke="${c}" stroke-width="4" ${d?'stroke-dasharray="9 6"':''} stroke-linecap="round"/>`;
+ if(o.line2)s+=ln(o.line2,'#f59e0b',1);if(o.line)s+=ln(o.line,'#0b5a73');
+ o.pts.forEach(([x,y],i)=>s+=`<circle cx="${X(x)}" cy="${Y(y)}" r="${mini?4.5:7}" fill="${o.hl&&o.hl.includes(i)?'#dc2626':'#0891b2'}" stroke="#fff" stroke-width="1.5"/>`);
+ s+='</g>';if(o.extra)s+=o.extra(X,Y);tick(el,h,s)}
+const xyAx={xl:'Hours studied per week (x)',yl:'Test score (y)'};
+
+watch('#sc1',()=>sc($('#sc1'),{pts:SD,x:[0,9,1],y:[40,100,10],h:320,...xyAx,extra:(X,Y)=>`<circle cx="${X(5)}" cy="${Y(77)}" r="13" fill="none" stroke="#f59e0b" stroke-width="3"/>`+TX(X(5)+18,Y(77)-14,'(5, 77)','font-weight="800" fill="#9a4608" font-size="15"')}));
+
+// Sim 9
+let t9='Positive';
+$('#bt9').innerHTML=['Positive','Negative','None','Curved'].map(k=>`<button class="btn alt" data-k="${k}">${k}</button>`).join('');
+$('#bt9').onclick=e=>{if(e.target.dataset.k){t9=e.target.dataset.k;u9()}};
+function u9(){const k=+$('#r9').value,p=gen(t9,k),r=lsq(p).r,ar=Math.abs(r);$('#v9').textContent=k;
+ document.querySelectorAll('#bt9 .btn').forEach(x=>x.classList.toggle('on',x.dataset.k==t9));
+ sc($('#c9'),{pts:p,x:[0,10,2],y:[0,10,2],h:300,xl:'x',yl:'y'});
+ const str=ar>=.8?'strong':ar>=.5?'moderate':'weak or none',dir=ar<.3?'no clear direction':r>0?'positive':'negative';
+ $('#s9').innerHTML=chips([['r',fx(r)],['Direction',dir],['Linear strength',str]]);
+ $('#m9').innerHTML=t9=='Curved'?'The pattern is clearly <strong>curved</strong>, yet r is near 0. r only measures <em>straight-line</em> association, so always look at the graph.':ar>=.8?'The points hug a straight line: a <strong>strong</strong> linear association.':ar>=.5?'There is a trend, but with visible scatter: <strong>moderate</strong>.':'Points are spread widely: little or no linear association.'}
+$('#r9').oninput=u9;watch('#c9',u9);
+
+// four mini scatterplots
+[['#sd1','Positive',2],['#sd2','Negative',7],['#sd3','None',0],['#sd4','Curved',1]].forEach(([id,t,k])=>watch(id,()=>sc($(id),{pts:gen(t,k,24),x:[0,10,2],y:[0,10,2],h:170,mini:true})));
+
+// best-fit idea
+watch('#sb1',()=>sc($('#sb1'),{pts:SD,x:[0,9,1],y:[40,100,10],h:320,...xyAx,line:[SL.a,SL.b],res:true}));
+
+// Sim 10
+let rs10=true,bs10=false;
+function u10(){const m=+$('#m10').value,b=+$('#b10').value,sse=sum(SD.map(([x,y])=>(y-(b+m*x))**2)),best=sum(SD.map(([x,y])=>(y-(SL.a+SL.b*x))**2));
+ $('#mv10').textContent=m.toFixed(1);$('#bv10').textContent=b.toFixed(1);
+ $('#rs10').textContent='Residuals: '+(rs10?'ON':'OFF');$('#rs10').classList.toggle('on',rs10);$('#bs10').textContent=bs10?'Hide the best-fit line':'Reveal the best-fit line';
+ sc($('#c10'),{pts:SD,x:[0,9,1],y:[40,100,10],h:320,...xyAx,line:[b,m],res:rs10,line2:bs10?[SL.a,SL.b]:null});
+ $('#s10').innerHTML=chips([['Your Σ residual²',fx(sse)],['Best possible',bs10?fx(best):'?']]);
+ $('#m10t').innerHTML=sse<best+8?'🎉 Excellent! You are very close to the least-squares line.':sse<best*3?'Getting closer. Try nudging the slope first, then the intercept.':'Still far away. Aim to have about half the dots above your line and half below.'+(bs10?' The dashed gold line is the best fit: ŷ = '+fx(SL.a)+' + '+fx(SL.b)+'x.':'')}
+$('#m10').oninput=u10;$('#b10').oninput=u10;$('#rs10').onclick=()=>{rs10=!rs10;u10()};$('#bs10').onclick=()=>{bs10=!bs10;u10()};watch('#c10',u10);
+
+
+// Sim 12: equation from two points
+function u12(){const x1=+$('#px1').value,y1=+$('#py1').value,x2=+$('#px2').value,y2=+$('#py2').value;
+ $('#vx1').textContent=x1;$('#vy1').textContent=y1;$('#vx2').textContent=x2;$('#vy2').textContent=y2;
+ const el=$('#c12'),vert=x1==x2,m=vert?0:(y2-y1)/(x2-x1),b=y1-m*x1;
+ sc(el,{pts:[[x1,y1],[x2,y2]],x:[0,12,2],y:[0,50,10],h:280,xl:'x',yl:'y',line:vert?null:[b,m],hl:[],
+  extra:(X,Y)=>(vert?`<line x1="${X(x1)}" x2="${X(x1)}" y1="${Y(0)}" y2="${Y(50)}" stroke="#0b5a73" stroke-width="4"/>`:'')+[[x1,y1,'P₁'],[x2,y2,'P₂']].map(([x,y,t])=>TX(X(x)+10,Y(y)-10,t+' ('+x+', '+y+')','font-weight="800" fill="#9a4608" font-size="13"')).join('')});
+ if(vert){$('#s12').innerHTML=chips([['Slope','undefined (vertical line)',1]]);$('#t12b').innerHTML='x₁ = x₂, so dividing by 0 is impossible. This is a vertical line x = '+x1+', not a function of x.';return}
+ $('#s12').innerHTML=chips([['m',fx(m)],['b',fx(b)],['Equation','ŷ = '+fx(b)+(m<0?' − '+fx(-m):' + '+fx(m))+'x']]);
+ $('#t12b').innerHTML=`<strong>1.</strong> m = (${y2} − ${y1}) ÷ (${x2} − ${x1}) = ${fx(y2-y1)} ÷ ${fx(x2-x1)} = <strong>${fx(m)}</strong><br><strong>2.</strong> b = ${y1} − (${fx(m)})(${x1}) = <strong>${fx(b)}</strong><br><strong>3.</strong> ŷ = ${fx(m)}x ${b<0?'− '+fx(-b):'+ '+fx(b)}`}
+['#px1','#py1','#px2','#py2'].forEach(i=>$(i).oninput=u12);watch('#c12',u12);
+
+// Least squares table
+(()=>{const xm=mean(SD.map(q=>q[0])),ym=mean(SD.map(q=>q[1])),rows=SD.map(([x,y])=>({x,y,dx:x-xm,dy:y-ym}));
+ const sxy=sum(rows.map(r=>r.dx*r.dy)),sxx=sum(rows.map(r=>r.dx**2)),b=sxy/sxx,a=ym-b*xm;
+ const msg=[`<h3>Step 0: the data and the means</h3><p>Σx = 43, Σy = 699, n = 10. So <span class="formula">x̄ = 4.3</span> and <span class="formula">ȳ = 69.9</span>.</p>`,
+ `<h3>Step 1: deviations from the means</h3><p>Compute x − x̄ and y − ȳ for each student. Each column adds up to 0.</p>`,
+ `<h3>Step 2: multiply, and square</h3><p>Add the columns: <span class="formula">Σ(x − x̄)(y − ȳ) = ${fx(sxy)}</span> and <span class="formula">Σ(x − x̄)² = ${fx(sxx)}</span>.</p>`,
+ `<h3>Step 3: the slope</h3><p><span class="formula">b = ${fx(sxy)} ÷ ${fx(sxx)} ≈ ${fx(b)}</span></p>`,
+ `<h3>Step 4: the intercept</h3><p><span class="formula">a = 69.9 − ${fx(b)}(4.3) ≈ ${fx(a)}</span></p><p>So <strong>ŷ = ${fx(a)} + ${fx(b)}x</strong>, the same line as before.</p>`];
+ stepper($('#lsbox'),4,k=>{const c=i=>k<i?'style="visibility:hidden"':'';
+  $('#lst').innerHTML=`<tr><th>x</th><th>y</th><th ${c(1)}>x − x̄</th><th ${c(1)}>y − ȳ</th><th ${c(2)}>(x − x̄)(y − ȳ)</th><th ${c(2)}>(x − x̄)²</th></tr>`+rows.map(r=>`<tr><td>${r.x}</td><td>${r.y}</td><td ${c(1)}>${fx(r.dx)}</td><td ${c(1)}>${fx(r.dy)}</td><td ${c(2)}>${fx(r.dx*r.dy)}</td><td ${c(2)}>${fx(r.dx**2)}</td></tr>`).join('')+`<tr><th>Sum</th><th></th><th ${c(1)}>0</th><th ${c(1)}>0</th><th ${c(2)}>${fx(sxy)}</th><th ${c(2)}>${fx(sxx)}</th></tr>`;
+  $('#lsn').innerHTML=msg[k]})})();
+
+// residual table
+$('#t12').innerHTML='<table class="small"><tr><th>x</th><th>y</th><th>ŷ</th><th>y − ŷ</th></tr>'+SD.map(([x,y])=>{const f=SL.a+SL.b*x,r=y-f;return`<tr><td>${x}</td><td>${y}</td><td>${fx(f)}</td><td style="color:${r>=0?'#0d6331':'#dc2626'};font-weight:700">${r>0?'+':''}${fx(r)}</td></tr>`}).join('')+'</table>';
+
+// Sim 11
+function u11(){const x=+$('#x11').value,out=$('#o11').checked,p=out?[...SD,[9,40]]:SD,L=lsq(p),pr=L.a+L.b*x,xs=p.map(q=>q[0]),lo=Math.min(...xs),hi=Math.max(...xs),inr=x>=lo&&x<=hi;
+ $('#xv11').textContent=x;
+ sc($('#c11'),{pts:p,x:[0,14,2],y:[30,130,10],h:320,...xyAx,shade:[lo,hi],line:[L.a,L.b],hl:out?[10]:[],hline:100,
+  extra:(X,Y)=>`<line x1="${X(x)}" x2="${X(x)}" y1="${Y(30)}" y2="${Y(pr)}" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="5 4"/><circle cx="${X(x)}" cy="${Y(pr)}" r="9" fill="#f59e0b" stroke="#fff" stroke-width="2"/>`+TX(X(0.3),Y(100)-6,'score cannot exceed 100','font-weight="800" fill="#dc2626" font-size="13"')});
+ $('#s11').innerHTML=chips([['Line','ŷ = '+fx(L.a)+' + '+fx(L.b)+'x'],['r',fx(L.r)],['Prediction at x = '+x,fx(pr),pr>100]]);
+ $('#m11').innerHTML=(inr?'x is inside the data range: <strong>interpolation</strong> ✅ (reasonable).':'x is outside the data range: <strong>extrapolation</strong> ⚠️ (risky).')+(pr>100?' The line predicts a score above 100, which is impossible, so the model breaks down here.':'')+(out?' <br>With the unusual student added, the slope drops sharply and r falls: one point has a big effect.':'')}
+$('#x11').oninput=u11;$('#o11').onchange=u11;watch('#c11',u11);
+
+// ---------- Quiz ----------
+const Q=[['A histogram has a long tail to the right. Which is most likely true?',['Mean < median','Mean > median','Mean = median exactly','The mode is the largest value'],1,'The tail pulls the mean toward it (like a kite), so mean > median.'],
+['The mean of 5 numbers is 12. Four of them are 8, 10, 12, 14. What is the fifth?',['14','16','18','12'],1,'Total = 5 × 12 = 60. The four known add to 44, so 60 − 44 = 16.'],
+['What is the median of 3, 7, 9, 12?',['7','8','9','7.5'],1,'Even count: the two middle values are 7 and 9 → (7 + 9) ÷ 2 = 8.'],
+['What is the mode of 2, 3, 3, 5, 5, 5, 8?',['3','4.4','5','8'],2,'5 appears three times, more than any other value.'],
+['Every value in a data set increases by 5. What happens to the standard deviation?',['Increases by 5','Doubles','Stays the same','Decreases'],2,'Bonus points move everyone together; the gaps between values do not change.'],
+['Two classes have the same mean. Class A has SD 3, class B has SD 9. Which is more consistent?',['Class A','Class B','Both are equal','Cannot tell'],0,'A smaller SD means values sit closer to the mean.'],
+['Which pair is resistant to outliers?',['Mean and range','Median and IQR','Mean and SD','Range and SD'],1,'Median and IQR depend on middle positions, not on extreme values.'],
+['A data set has Q₁ = 20 and Q₃ = 32. Above what value is a data point an outlier?',['44','48','50','38'],2,'IQR = 12; 1.5 × 12 = 18; upper fence = 32 + 18 = 50.'],
+['In a box plot, about what fraction of the data lies between Q₁ and the median?',['10%','25%','50%','It depends on the length'],1,'Each of the four sections holds about 25%, whatever its length.'],
+['Every value is multiplied by 3. The range was 8. What is the new range?',['8','11','24','72'],2,'Multiplying stretches the spread: 8 × 3 = 24.'],
+['A scatterplot shows points rising from the lower left to the upper right. What kind of association is this?',['Negative','Positive','None','Cannot tell'],1,'As x increases, y increases: a positive association.'],
+['A line of best fit is ŷ = 40 + 5x, where x = hours studied and ŷ = predicted score. What does the 5 mean?',['Predicted score with 0 hours','Predicted score rises about 5 points per extra hour','5 students were surveyed','The correlation is 5'],1,'The slope is the predicted change in y for each 1-unit increase in x.'],
+['Using ŷ = 40 + 5x, a student who studied 4 hours scored 65. What is the residual?',['+5','−5','60','25'],0,'Predicted = 40 + 5(4) = 60. Residual = actual − predicted = 65 − 60 = +5.'],
+['A line of best fit passes through (1, 7) and (5, 19). What is its slope?',['2','3','4','12'],1,'Slope = (19 − 7) ÷ (5 − 1) = 12 ÷ 4 = 3.'],
+['A model built from data with x between 1 and 8 is used to predict y at x = 40. This is called…',['Interpolation','Extrapolation','Correlation','A residual'],1,'Predicting outside the range of the data is extrapolation, and it is risky.'],
+['Which value of r shows the strongest linear association?',['r = 0.3','r = −0.9','r = 0.6','r = 0'],1,'Strength depends on distance from 0, not the sign. −0.9 is the closest to −1.'],
+['The points (0, 5), (1, 8), (2, 11), (3, 14) are plotted. Which model fits best?',['Linear','Quadratic','Exponential','No model'],0,'y goes up by 3 every time: a constant difference means a linear model.'],
+['A line of best fit has slope 3. The mean of x is 10 and the mean of y is 50. What is the y-intercept?',['30','47','20','80'],2,'The line passes through (x̄, ȳ). Intercept = ȳ − b·x̄ = 50 − 3(10) = 20.'],
+['For a data set r = 0.8, sₓ = 5 and s_y = 10. What is the slope of the least-squares line?',['0.4','1.6','4','8'],1,'Slope = r · (s_y ÷ sₓ) = 0.8 × (10 ÷ 5) = 1.6.'],
+['A line of best fit passes through (2, 11) and (6, 27). Which is its equation?',['y = 4x + 5','y = 4x + 3','y = 6x − 1','y = 2x + 7'],1,'Slope = 16 ÷ 4 = 4. Then 11 = 4(2) + b gives b = 3, so y = 4x + 3.']];
+let qi=0,qs=0;
+function uq(){const q=$('#quiz');if(qi>=Q.length){q.innerHTML=`<div class="card soft" style="text-align:center;animation:pop .4s"><div class="big-emoji">${qs==Q.length?'🏆':qs>=Math.round(Q.length*.7)?'🎉':'💪'}</div><h3 style="font-size:1.6em">Score: ${qs} / ${Q.length}</h3><p>${qs==Q.length?'Barakallahu fiik! You read the data carefully.':qs>=Math.round(Q.length*.7)?'Great job! Review the ones you missed.':'Keep practicing! Go back to the simulators for the questions you missed, then try again.'}</p><button class="btn" id="qr">Try again</button></div>`;
+  $('#qr').onclick=()=>{qi=qs=0;uq()};if(qs==Q.length)for(let i=0;i<60;i++){const c=document.createElement('i');c.className='conf';c.style.cssText=`left:${Math.random()*100}vw;background:hsl(${Math.random()*360},80%,60%);animation-delay:${Math.random()}s`;document.body.append(c);setTimeout(()=>c.remove(),4500)}return}
+ const[t,o,a,e]=Q[qi];q.innerHTML=`<div class="card" style="max-width:900px"><div style="display:flex;justify-content:space-between;align-items:center"><span class="tag">Question ${qi+1} of ${Q.length}</span><span class="small" style="font-weight:700">Score: ${qs}</span></div><div class="progress" style="margin:.4em 0 .8em"><span style="width:${qi/Q.length*100}%"></span></div><h3>${t}</h3>${o.map((x,i)=>`<button class="opt" data-i="${i}">${'ABCD'[i]}. ${x}</button>`).join('')}<div id="fb"></div></div>`;
+ q.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(q.dataset.l)return;q.dataset.l=1;const i=+b.dataset.i;if(i==a){qs++;b.classList.add('ok')}else{b.classList.add('no');q.querySelectorAll('.opt')[a].classList.add('ok')}
+  $('#fb').innerHTML=`<div class="key"><p><strong>${i==a?'✅ Correct!':'❌ Not quite.'}</strong> ${e}</p></div><button class="btn" id="qn">${qi==Q.length-1?'See score':'Next question ▶'}</button>`;$('#qn').onclick=()=>{delete q.dataset.l;qi++;uq()}})}
+uq();
+show(0);
+</script>
+</body>
+</html>
